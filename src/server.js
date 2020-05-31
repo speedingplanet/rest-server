@@ -1,23 +1,25 @@
-/* eslint-disable */
+#!/usr/bin/env node
+
 const path = require('path');
 const jsonServer = require('json-server');
 const chalk = require('chalk');
 const fs = require('fs-extra');
+const meow = require('meow');
 
 const serverConfig = require('./server-config.json');
 
-const port = 8000;
-const dataDir = '../data/generated';
+const dataDir = serverConfig.dataDir;
 
 const endpoint = 'zippay';
 const { version, resources } = serverConfig.endpoints[endpoint];
-const apiUrl = `/api/v${version}/${endpoint}`;
+const apiUrl = `/api/${endpoint}/v${version}`;
 const dataFile = `${endpoint}-data.json`;
 const dataRoutes = path.join(__dirname, dataDir, dataFile);
 
 const data = {};
 
-async function main() {
+async function main(config) {
+  const { port } = config;
   await Promise.all(
     resources.map((r) => {
       return fs
@@ -44,6 +46,25 @@ async function main() {
   });
 }
 
-main();
+if (require.main === module) {
+  const cli = meow(`
+  Usage
+    $ rest-server <command> <options>
 
-// TODO: Add urls for discoverability
+  Command
+    start       Start the server
+  
+  Options
+    --port Specify a custom port, defaults to 8000
+  `);
+
+  const port = cli.flags.port || serverConfig.port;
+
+  if (cli.input[0] === 'start') {
+    main({ port });
+  } else {
+    console.warn('You probably meant "rest-server start".');
+  }
+}
+
+module.exports = { serverStart: main };
