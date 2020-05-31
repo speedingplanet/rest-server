@@ -1,0 +1,43 @@
+{
+  "name": "@speedingplanet/rest-server",
+  "version": "0.0.1",
+  "description": "Speeding Planet's REST server",
+  "main": "server.js",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "chance": "^1.1.4",
+    "date-fns": "^2.12.0",
+    "faker": "^4.1.0",
+    "fs-extra": "^9.0.0",
+    "get-port": "^5.1.1",
+    "json-server": "^0.16.1",
+    "lodash": "^4.17.15",
+    "meow": "^6.1.1",
+    "pug": "^2.0.4",
+    "query-string": "^6.11.1",
+    "zipcodes": "^8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "jest": "^25.2.4",
+    "prettier": "^2.0.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/speedingplanet/rest-server.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "REST"
+  ],
+  "author": "John Paxton <pax@speedingplanet.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/speedingplanet/rest-server/issues"
+  },
+  "homepage": "https://github.com/speedingplanet/rest-server#readme"
+}
