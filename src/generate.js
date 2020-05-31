@@ -22,10 +22,16 @@ function writeToFile(fileName, data) {
 //     Program body
 // ======================================================
 
-const defaultCount = 100;
+const types = ['users', 'transactions'];
+const generate = {
+  users: generateUsers,
+  transactions: generateTransactions,
+};
 
-const opts = meow(
-  `
+// @ts-ignore
+if (require.main === module) {
+  const opts = meow(
+    `
   Usage: 
     $ generate <type> <amount> <type> <amount>... <options> 
 
@@ -36,69 +42,84 @@ const opts = meow(
   Options:
     --toFiles dumps output to appropriate files
 `,
-  {
-    flags: {
-      count: {
-        type: 'number',
-        default: defaultCount,
-        isMultiple: true,
+    {
+      flags: {
+        toFiles: {
+          type: 'boolean',
+          default: false,
+        },
       },
     },
-  },
-);
-
-if (opts.input.length % 2) {
-  console.error(
-    'Wrong number of arguments. There should be an even number of arguments.',
   );
-  process.exit(-1);
-}
 
-const types = ['users', 'transactions'];
-const generate = {
-  users: generateUsers,
-  transactions: generateTransactions,
-};
-
-const args = new Map();
-
-for (let x = 0; x < opts.input.length; x += 2) {
-  const type = opts.input[x];
-
-  // @ts-ignore
-  if (!isNaN(type)) {
-    console.error('Wrong type or argument in wrong position: ', type);
+  if (opts.input.length % 2) {
+    console.error(
+      'Wrong number of arguments. There should be an even number of arguments.',
+    );
     process.exit(-1);
   }
 
-  if (!types.includes(type)) {
-    console.warn(`Incorrect type: "${type}". Skipping.`);
-    continue;
+  const config = {
+    types: {},
+  };
+
+  for (let x = 0; x < opts.input.length; x += 2) {
+    const type = opts.input[x];
+
+    // @ts-ignore
+    if (!isNaN(type)) {
+      console.error('Wrong type or argument in wrong position: ', type);
+      process.exit(-1);
+    }
+
+    if (!types.includes(type)) {
+      console.warn(`Incorrect type: "${type}". Skipping.`);
+      continue;
+    }
+
+    const count = Number(opts.input[x + 1]);
+    config.types[type] = count;
   }
 
-  const count = Number(opts.input[x + 1]);
-  args.set(type, count);
-}
-
-if (args.has('users') && args.get('users') > args.get('transactions')) {
-  console.error('More users than transactions, which is weird. Exiting.');
-  process.exit(-1);
-}
-
-const output = {};
-
-for (let [type, count] of args.entries()) {
-  console.log('Generating ', type);
-
-  if (type === 'transactions' && output['users'].length) {
-    output[type] = generate[type](count, output['users']);
-  } else {
-    output[type] = generate[type](count);
+  if (config.types.users && config.types.users > config.types.transactions) {
+    console.error('More users than transactions, which is weird. Exiting.');
+    process.exit(-1);
   }
 
   if (opts.flags.toFiles) {
-    writeToFile(`${__dirname}/../data/generated/${type}.json`, output[type]);
+    config.toFiles = true;
   }
 
-  // console.log(type, output[type]);
+  generateData(config);
 }
+
+/*
+ * config = {
+ *   types: {
+ *     users: number of users,
+ *     transactions: number of transactions,
+ *   }
+ *   toFiles: write to file? default false
+ */
+
+function generateData(config) {
+  const output = {};
+
+  for (let [type, count] of Object.entries(config.types)) {
+    console.log('Generating ', type);
+
+    if (type === 'transactions' && output['users'].length) {
+      output[type] = generate[type](count, output['users']);
+    } else {
+      output[type] = generate[type](count);
+    }
+
+    if (config.toFiles) {
+      writeToFile(`${__dirname}/../data/generated/${type}.json`, output[type]);
+    }
+  }
+}
+
+module.exports = {
+  generateData,
+};
