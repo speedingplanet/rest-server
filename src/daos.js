@@ -36,7 +36,7 @@
  *
  */
 
-const serverConfig = require('./server-config.json');
+import * as serverConfig from './server-config.json';
 const baseUrl = `/api/zippay/v${serverConfig.endpoints['zippay'].version}`;
 
 function search(resource, options) {

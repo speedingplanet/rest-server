@@ -30,6 +30,7 @@ async function main(config) {
   await fs.writeJSON(dataRoutes, data, { spaces: 2 });
 
   const server = jsonServer.create();
+  server.set('views', path.join(__dirname, '../views/'));
   server.set('view engine', 'pug');
   const router = jsonServer.router(dataRoutes);
   const middlewares = jsonServer.defaults();
