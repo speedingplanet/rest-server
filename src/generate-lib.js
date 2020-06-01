@@ -177,6 +177,8 @@ function notThisOne(item, array) {
 }
 
 function generateTransactions(count = 1, users = seedUsers) {
+  if (!Array.isArray(users))
+    console.error('Need an array of users to generate transactions');
   if (count < users.length) console.warn('Not every user will have a transaction');
 
   const today = new Date();

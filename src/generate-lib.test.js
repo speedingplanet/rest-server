@@ -97,5 +97,3 @@ test('All users have at least one payment', () => {
 
   expect(everyResult).toBeTruthy();
 });
-
-test('Payments on charges should never be in the future', () => {});

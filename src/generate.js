@@ -11,11 +11,10 @@ const fs = require('fs-extra');
 // ======================================================
 
 function writeToFile(fileName, data) {
-  fs.ensureDir(path.dirname(fileName)).then(() => {
-    fs.writeJSON(fileName, data, { spaces: 2 })
-      .then(() => console.log('generated to file: ', fileName))
-      .catch((err) => console.error(err));
-  });
+  return fs
+    .outputJSON(fileName, data, { spaces: 2 })
+    .then(() => console.log('generated to file: ', fileName))
+    .catch((error) => Promise.reject({ fileName, error }));
 }
 
 // ======================================================
@@ -96,28 +95,57 @@ if (require.main === module) {
 /*
  * config = {
  *   types: {
- *     users: number of users,
+ *     users: number users | array of users | path to users file
  *     transactions: number of transactions,
  *   }
  *   toFiles: write to file? default false
  */
 
-function generateData(config) {
+async function generateData(config) {
   const output = {};
+  const promises = [];
 
-  for (let [type, count] of Object.entries(config.types)) {
-    console.log('Generating ', type);
-
-    if (type === 'transactions' && output['users'].length) {
-      output[type] = generate[type](count, output['users']);
-    } else {
-      output[type] = generate[type](count);
-    }
-
-    if (config.toFiles) {
-      writeToFile(`${__dirname}/../data/generated/${type}.json`, output[type]);
+  if (config.types.users) {
+    console.log('Generating users....');
+    if (typeof config.types.users === 'number') {
+      output['users'] = generate['users'](config.types.users);
+    } else if (typeof config.types.users === 'string') {
+      try {
+        output['users'] = await fs.readJSON(config.types.users);
+      } catch (error) {
+        console.error(`Could not read users input file ${config.types.users}: `, error);
+        throw new Error(error);
+      }
     }
   }
+
+  if (config.types.transactions) {
+    console.log('Generating transactions');
+    if (!Array.isArray(output['users'])) {
+      console.warn('No users passed in, using ONLY seedUsers');
+    }
+
+    output['transactions'] = generate['transactions'](
+      config.types.transactions,
+      output['users'],
+    );
+  }
+
+  if (config.toFiles) {
+    try {
+      Promise.all(
+        Object.keys(output).map((type) => {
+          console.log(`Writing to ${type}.json`);
+          writeToFile(`${__dirname}/../data/generated/${type}.json`, output[type]);
+        }),
+      );
+    } catch (error) {
+      console.error(`Could not write to file ${error.fileName} because `, error.error);
+      throw new Error(error);
+    }
+  }
+
+  return output;
 }
 
 module.exports = {

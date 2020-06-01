@@ -6,27 +6,47 @@ const chalk = require('chalk');
 const fs = require('fs-extra');
 const meow = require('meow');
 
+const { generateData } = require('./generate');
 const serverConfig = require('./server-config.json');
-
-const dataDir = serverConfig.dataDir;
-
-const endpoint = 'zippay';
-const { version, resources } = serverConfig.endpoints[endpoint];
-const apiUrl = `/api/${endpoint}/v${version}`;
-const dataFile = `${endpoint}-data.json`;
-const dataRoutes = path.join(__dirname, dataDir, dataFile);
 
 const data = {};
 
+async function generate() {
+  try {
+    return await generateData({
+      toFiles: true,
+      types: {
+        users: 50,
+        transactions: 1000,
+      },
+    });
+  } catch (error) {
+    console.error('Could not generate data because ', error);
+  }
+}
+
 async function main(config) {
   const { port } = config;
-  await Promise.all(
-    resources.map((r) => {
-      return fs
-        .readJSON(path.join(__dirname, dataDir, `${r}.json`))
-        .then((resourceData) => (data[r] = resourceData));
-    }),
-  );
+  const dataDir = serverConfig.dataDir;
+  const usersFile = path.join(__dirname, dataDir, 'users.json');
+  const txFile = path.join(__dirname, dataDir, 'transactions.json');
+  let data = {};
+
+  try {
+    data.users = await fs.readJSON(usersFile);
+    data.transactions = await fs.readJSON(txFile);
+  } catch (error) {
+    console.error('Could not load data for server because ', error);
+    console.error(chalk.red.bold('Maybe try "rest-server generate" ?'));
+    throw new Error(error);
+  }
+
+  const endpoint = 'zippay';
+  const { version, resources } = serverConfig.endpoints[endpoint];
+  const apiUrl = `/api/${endpoint}/v${version}`;
+  const dataFile = `${endpoint}-data.json`;
+  const dataRoutes = path.join(__dirname, dataDir, dataFile);
+
   await fs.writeJSON(dataRoutes, data, { spaces: 2 });
 
   const server = jsonServer.create();
@@ -54,6 +74,7 @@ if (require.main === module) {
 
   Command
     start       Start the server
+    generate    Generate data for the server
   
   Options
     --port Specify a custom port, defaults to 8000
@@ -63,8 +84,10 @@ if (require.main === module) {
 
   if (cli.input[0] === 'start') {
     main({ port });
+  } else if (cli.input[0] === 'generate') {
+    generate();
   } else {
-    console.warn('You probably meant "rest-server start".');
+    console.warn('Run with either "generate" or "start".');
   }
 }
 
