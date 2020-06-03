@@ -37,7 +37,7 @@
  */
 
 import * as serverConfig from './server-config.json';
-const baseUrl = `/api/zippay/v${serverConfig.endpoints['zippay'].version}`;
+const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints['zippay'].version}`;
 
 function search(resource, options) {
   return fetch(`${baseUrl}/${resource}`)
