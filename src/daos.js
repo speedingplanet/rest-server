@@ -25,7 +25,7 @@
  * limit: Return exactly this many records
  *
  * Other options
- * axios: boolean, default false: Use axios style queries instead
+ * httpErrors: boolean, default false: Should http error statuses (>=400) be reported as an error?
  * delay: Delay the response this many seconds
  * returnType: null, array, object, native? (How do we implement native? )
  *
@@ -39,24 +39,21 @@
 import * as serverConfig from './server-config.json';
 const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints['zippay'].version}`;
 
+const defaultOptions = {
+  httpError: true,
+};
+
 function search(resource, options) {
   return fetch(`${baseUrl}/${resource}`)
     .then((response) => {
-      if (response.ok) {
+      if (response.ok || !options.httpErrors) {
         return response.json().then((data) => ({ data, response }));
-      } else {
-        if (options.axios) {
-          return Promise.reject({
-            data: getBadData(options.returnType),
-            response,
-            error: { code: response.status, text: response.statusText },
-          });
-        } else {
-          return {
-            data: getBadData(options.returnType),
-            response,
-          };
-        }
+      } else if (options.httpErrors) {
+        return Promise.reject({
+          data: getBadData(options.returnType),
+          response,
+          error: { code: response.status, text: response.statusText },
+        });
       }
     })
     .catch((err) => {
@@ -73,36 +70,20 @@ function search(resource, options) {
     });
 }
 
-function findAllTransactions() {
-  return search('transactions');
+function findAllTransactions(options) {
+  return search('transactions', { ...options, returnType: 'array' });
 }
 
-function findTransactionById(id) {
-  return search(`transactions/${id}`);
+function findTransactionById(id, options) {
+  return search(`transactions/${id}`, { ...options, returnType: 'object' });
 }
 
-function findAllUsers() {
-  return search('users');
+function findAllUsers(options) {
+  return search('users', { ...options, returnType: 'array' });
 }
 
-function findUsersById(id) {
-  return search(`users/${id}`);
-}
-
-function queryAllTransactions() {
-  return search('transactions', { axios: true });
-}
-
-function queryTransactionById(id) {
-  return search(`transactions/${id}`, { axios: true });
-}
-
-function queryAllUsers() {
-  return search('users', { axios: true });
-}
-
-function queryUsersById(id) {
-  return search(`users/${id}, {axios: true}`);
+function findUserById(id, options) {
+  return search(`users/${id}`, { ...options, returnType: 'object' });
 }
 
 function getBadData(returnType) {
@@ -121,10 +102,6 @@ const dao = {
   findTransactionById,
   findAllUsers,
   findUsersById,
-  queryAllTransactions,
-  queryTransactionById,
-  queryAllUsers,
-  queryUsersById,
 };
 
 export { dao };
