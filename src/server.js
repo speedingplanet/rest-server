@@ -25,6 +25,15 @@ async function generate() {
   }
 }
 
+function getNextId(array, idField = 'id', offset = 10) {
+  const currentMaxId = array.reduce(
+    (max, current) => (Number(current[idField]) > max ? Number(current[idField]) : max),
+    0,
+  );
+
+  return currentMaxId + offset;
+}
+
 async function main(config) {
   const { port } = config;
   const dataDir = serverConfig.dataDir;
@@ -41,6 +50,15 @@ async function main(config) {
     throw new Error(error);
   }
 
+  data.config = {
+    users: {
+      nextId: getNextId(data.users),
+    },
+    transactions: {
+      nextId: getNextId(data.transactions),
+    },
+  };
+
   const endpoint = 'zippay';
   const { version, resources } = serverConfig.endpoints[endpoint];
   const apiUrl = `/api/${endpoint}/v${version}`;
@@ -52,13 +70,14 @@ async function main(config) {
   const server = jsonServer.create();
   server.set('views', path.join(__dirname, '../views/'));
   server.set('view engine', 'pug');
-  const router = jsonServer.router(dataRoutes);
+  const router = jsonServer.router(data);
   const middlewares = jsonServer.defaults();
   server.get('/', (req, res) => {
     res.render('index', { baseUrl: apiUrl, resources });
   });
 
   server.use(middlewares);
+
   server.use(apiUrl, router);
   server.listen(port, () => {
     console.log(`Speeding Planet REST server is running`);
@@ -91,4 +110,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { serverStart: main };
+module.exports = { serverStart: main, getNextId };
