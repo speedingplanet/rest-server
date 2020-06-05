@@ -120,6 +120,17 @@ function generate(spec, custom) {
   return instance;
 }
 
+function generatePayeeId(displayName) {
+  return (
+    displayName.replace(/\s/, '').substring(0, 4).toUpperCase() +
+    '$' +
+    chance.hash({
+      casing: 'upper',
+      length: 4,
+    })
+  );
+}
+
 function generateUsers(count = 1) {
   const users = new Array(count);
   const today = new Date();
@@ -157,10 +168,7 @@ function generateUsers(count = 1) {
         userProto.displayName,
       )}.${chance.weighted(['com', 'org', 'net', 'us'], [4, 1, 2, 1])}`;
     }
-    userProto.payeeId = `${userProto.displayName
-      .replace(/\s/, '')
-      .substring(0, 4)
-      .toUpperCase()}$${chance.hash({ casing: 'upper', length: 4 })}`;
+    userProto.payeeId = generatePayeeId(userProto.displayName);
 
     users[x] = generate({ ...userProto, ...userSpec });
   }
@@ -256,6 +264,7 @@ function generateTransactions(count = 1, users = seedUsers) {
 
 module.exports = {
   generate,
+  generatePayeeId,
   generateUsers,
   generateTransactions,
   getMaxId,

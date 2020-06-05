@@ -7,6 +7,7 @@ const fs = require('fs-extra');
 const meow = require('meow');
 
 const { generateData } = require('./generate');
+const { generatePayeeId } = require('./generate-lib');
 const serverConfig = require('./server-config.json');
 
 const data = {};
@@ -25,7 +26,7 @@ async function generate() {
   }
 }
 
-function getNextId(array, idField = 'id', offset = 10) {
+function getNextId(array, idField = 'id', offset = 1) {
   const currentMaxId = array.reduce(
     (max, current) => (Number(current[idField]) > max ? Number(current[idField]) : max),
     0,
@@ -52,10 +53,14 @@ async function main(config) {
 
   data.config = {
     users: {
-      nextId: getNextId(data.users),
+      get nextId() {
+        return getNextId(data.users);
+      },
     },
     transactions: {
-      nextId: getNextId(data.transactions),
+      get nextId() {
+        return getNextId(data.transactions);
+      },
     },
   };
 
@@ -77,6 +82,23 @@ async function main(config) {
   });
 
   server.use(middlewares);
+
+  server.use(jsonServer.bodyParser);
+  server.use((req, res, next) => {
+    if (req.method === 'POST') {
+      if (req.path.endsWith('users')) {
+        req.body.id = data.config.users.nextId;
+        req.body.payeeId = generatePayeeId(req.body.displayName);
+      } else if (req.path.endsWith('transactions')) {
+        req.body.id = data.config.transactions.nextId;
+      }
+      req.body.version = 1;
+      req.body.lastUpdated = new Date().toISOString();
+      req.body.active = true;
+    }
+
+    next();
+  });
 
   server.use(apiUrl, router);
   server.listen(port, () => {
