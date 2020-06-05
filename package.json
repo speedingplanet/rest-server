@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "node server.js start"
+    "start": "node src/server.js start"
   },
   "repository": {
     "type": "git",
