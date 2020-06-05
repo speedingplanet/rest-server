@@ -44,30 +44,41 @@ const defaultOptions = {
 };
 
 function search(resource, options) {
-  return fetch(`${baseUrl}/${resource}`)
-    .then((response) => {
-      if (response.ok || !options.httpErrors) {
-        return response.json().then((data) => ({ data, response }));
-      } else if (options.httpErrors) {
-        return Promise.reject({
-          data: getBadData(options.returnType),
-          response,
-          error: { code: response.status, text: response.statusText },
-        });
-      }
-    })
-    .catch((err) => {
-      if (err.data && err.error) {
-        // Likely from this DAO, pass it through
-        return Promise.reject(err);
-      } else {
-        return {
-          code: -1,
-          message: 'Unknown error',
-          err,
-        };
-      }
+  return fetch(`${baseUrl}/${resource}`).then((response) =>
+    handleResponse(response, options),
+  );
+}
+
+function add(resource, data, options) {
+  const request = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify(data);
+
+  return fetch(`${baseUrl}/${resource}`, { ...request, body }).then((response) =>
+    handleResponse(response, options),
+  );
+}
+
+function handleResponse(response, options) {
+  if (response.ok || !options.httpErrors) {
+    return response
+      .json()
+      .then((data) => ({ data, response }))
+      .catch((err) =>
+        Promise.reject({ response, error: { code: -1, text: 'JSON Parse Error', err } }),
+      );
+  } else if (options.httpErrors) {
+    return Promise.reject({
+      data: getBadData(options.returnType),
+      response,
+      error: { code: response.status, text: response.statusText },
     });
+  }
 }
 
 function findAllTransactions(options) {
@@ -86,6 +97,10 @@ function findUserById(id, options) {
   return search(`users/${id}`, { ...options, returnType: 'object' });
 }
 
+function addUser(user) {
+  return add('users', user);
+}
+
 function getBadData(returnType) {
   switch (returnType) {
     case 'array':
@@ -101,7 +116,8 @@ const dao = {
   findAllTransactions,
   findTransactionById,
   findAllUsers,
-  findUsersById,
+  findUserById,
+  addUser,
 };
 
 export { dao };

@@ -16,3 +16,4 @@
 - [ ] Shutdown (or going to /persist ?) writes data to combined file, splits it back out to individual files
 - [ ] Configure a streaming resource (plugged into Faker or Chance)
 - [ ] Type definitions for DAOs
+- [x] Server should generate some data (id, version, lastUpdated)
