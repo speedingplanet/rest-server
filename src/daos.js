@@ -36,7 +36,7 @@
  *
  */
 
-import * as serverConfig from './server-config.json';
+import serverConfig from './server-config.js';
 const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints['zippay'].version}`;
 
 const defaultOptions = {
