@@ -10,6 +10,8 @@ const { generateData } = require('./generate');
 const { generatePayeeId } = require('./generate-lib');
 const serverConfig = require('./server-config.json');
 
+const dataDir = serverConfig.dataDir;
+const dataDirFull = path.join(__dirname, dataDir);
 const data = {};
 
 async function generate() {
@@ -37,9 +39,8 @@ function getNextId(array, idField = 'id', offset = 1) {
 
 async function main(config) {
   const { port } = config;
-  const dataDir = serverConfig.dataDir;
-  const usersFile = path.join(__dirname, dataDir, 'users.json');
-  const txFile = path.join(__dirname, dataDir, 'transactions.json');
+  const usersFile = path.join(dataDirFull, 'users.json');
+  const txFile = path.join(dataDirFull, 'transactions.json');
   let data = {};
 
   try {
@@ -116,6 +117,7 @@ if (require.main === module) {
   Command
     start       Start the server
     generate    Generate data for the server
+    clean       Wipe out generated data
   
   Options
     --port Specify a custom port, defaults to 8000
@@ -127,6 +129,10 @@ if (require.main === module) {
     main({ port });
   } else if (cli.input[0] === 'generate') {
     generate();
+  } else if (cli.input[0] === 'clean') {
+    fs.remove(dataDirFull)
+      .then(() => console.log('Cleaned ', dataDirFull))
+      .catch((err) => console.error('Could not clean data dir because ', err));
   } else {
     console.warn('Run with either "generate" or "start".');
   }

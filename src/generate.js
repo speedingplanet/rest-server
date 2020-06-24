@@ -5,14 +5,29 @@ const { generateTransactions, generateUsers } = require('./generate-lib');
 
 const _ = require('lodash');
 const fs = require('fs-extra');
+const prettier = require('prettier');
 
 // ======================================================
 //     Utility Functions
 // ======================================================
 
 function writeToFile(fileName, data) {
-  return fs
-    .outputJSON(fileName, data, { spaces: 2 })
+  let writePromise;
+  if (path.extname(fileName) === '.json') {
+    writePromise = fs.outputJSON(fileName, data, { spaces: 2 });
+  } else if (path.extname(fileName) === '.js') {
+    const output = prettier.format(`export default ${JSON.stringify(data)}`, {
+      singleQuote: true,
+      jsxSingleQuote: false,
+      trailingComma: 'all',
+      printWidth: 90,
+      parser: 'babel',
+    });
+    writePromise = fs.outputFile(fileName, output);
+  } else {
+    Promise.reject();
+  }
+  return writePromise
     .then(() => console.log('generated to file: ', fileName))
     .catch((error) => Promise.reject({ fileName, error }));
 }
@@ -137,6 +152,7 @@ async function generateData(config) {
         Object.keys(output).map((type) => {
           console.log(`Writing to ${type}.json`);
           writeToFile(`${__dirname}/../data/generated/${type}.json`, output[type]);
+          writeToFile(`${__dirname}/../data/generated/${type}.js`, output[type]);
         }),
       );
     } catch (error) {

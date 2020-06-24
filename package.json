@@ -1,6 +1,6 @@
 {
   "name": "@speedingplanet/rest-server",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Speeding Planet's REST server",
   "main": "index.js",
   "dependencies": {
@@ -13,18 +13,21 @@
     "json-server": "^0.16.1",
     "lodash": "^4.17.15",
     "meow": "^6.1.1",
+    "prettier": "^2.0.5",
     "pug": "^2.0.4",
     "query-string": "^6.11.1",
     "zipcodes": "^8.0.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "jest": "^25.2.4",
-    "prettier": "^2.0.2"
+    "jest": "^26.1.0"
   },
   "scripts": {
     "test": "jest",
-    "start": "node src/server.js start"
+    "start": "node src/server.js start",
+    "install": "node src/server.js generate",
+    "generate": "node src/server.js generate",
+    "clean": "node src/server.js clean"
   },
   "repository": {
     "type": "git",

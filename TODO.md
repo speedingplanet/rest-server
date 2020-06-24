@@ -10,11 +10,15 @@
 - [x] Add configuration to run it as a package included in another project
 - [x] Pass port number on the command line, or via a config file
 - [x] Server should generate some data (id, version, lastUpdated)
-- [ ] Post-install script generates initial data (obviating call to generate)
+- [x] Post-install script generates initial data (obviating call to generate)
+- [x] Generate pure JavaScript versions of data (for testing, use before fetch() is covered, etc.)
 - [ ] Endpoint data can be generated on-the-fly
 - [ ] Configure a streaming resource (plugged into Faker or Chance)
 - [ ] Original files are backed up at startup
 - [ ] Actual images for payees
 - [ ] Shutdown (or going to /persist ?) writes data to combined file, splits it back out to individual files
 - [ ] Type definitions for DAOs
-- [ ] Generate pure JavaScript versions of data (for testing, use before fetch() is covered, etc.)
+- [ ] Generate addresses for other countries
+- [ ] Clean up duplication between server-config.json and server-config.js
+- [ ] Commands (generate, clean, serve) should go in their own file?
+- [ ] Add testing for daos.js that works with Jest (which does not really support ES modules at the moment)
