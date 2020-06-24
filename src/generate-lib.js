@@ -71,6 +71,7 @@ function generateAddress() {
     city,
     state,
     postalCode: zip,
+    country: 'USA',
   };
 }
 

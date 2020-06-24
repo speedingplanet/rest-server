@@ -7,7 +7,8 @@
       "street": "1393 Caton St",
       "city": "Roxbury",
       "state": "CT",
-      "postalCode": "06783"
+      "postalCode": "06783",
+      "country": "USA"
     },
     "id": "101",
     "version": 1,
@@ -22,7 +23,8 @@
       "street": "244 Grafton Ave",
       "city": "Longview",
       "state": "WA",
-      "postalCode": "98632"
+      "postalCode": "98632",
+      "country": "USA"
     },
     "id": "102",
     "version": 1,
@@ -37,7 +39,8 @@
       "street": "1237 Lee Pl",
       "city": "Mullan",
       "state": "ID",
-      "postalCode": "83846"
+      "postalCode": "83846",
+      "country": "USA"
     },
     "id": "103",
     "version": 1,
@@ -52,7 +55,8 @@
       "street": "330 Pollard Pl",
       "city": "Belle Chasse",
       "state": "LA",
-      "postalCode": "70037"
+      "postalCode": "70037",
+      "country": "USA"
     },
     "id": "104",
     "version": 1,
@@ -67,7 +71,8 @@
       "street": "702 Colby St",
       "city": "Lehigh Acres",
       "state": "FL",
-      "postalCode": "33976"
+      "postalCode": "33976",
+      "country": "USA"
     },
     "id": "105",
     "version": 1,
@@ -82,7 +87,8 @@
       "street": "629 Beulah St",
       "city": "Hanston",
       "state": "KS",
-      "postalCode": "67849"
+      "postalCode": "67849",
+      "country": "USA"
     },
     "id": "106",
     "version": 1,
@@ -97,7 +103,8 @@
       "street": "459 Sam Lloyd Ave",
       "city": "Oxnard",
       "state": "CA",
-      "postalCode": "93031"
+      "postalCode": "93031",
+      "country": "USA"
     },
     "id": "107",
     "version": 1,
@@ -112,7 +119,8 @@
       "street": "1715 Greymalkin Lane",
       "city": "North Salem",
       "state": "NY",
-      "postalCode": "10560"
+      "postalCode": "10560",
+      "country": "USA"
     },
     "id": "108",
     "version": 1,
@@ -127,7 +135,8 @@
       "street": "5904 North York Rd",
       "city": "Baltimore",
       "state": "MD",
-      "postalCode": "21212"
+      "postalCode": "21212",
+      "country": "USA"
     },
     "id": "109",
     "version": 1,
@@ -142,7 +151,8 @@
       "street": "319 Thomas Wayne Road",
       "city": "Gotham",
       "state": "NY",
-      "postalCode": "10939"
+      "postalCode": "10939",
+      "country": "USA"
     },
     "id": "110",
     "version": 1,
@@ -157,7 +167,8 @@
       "street": "1 Innovation Parkway",
       "city": "Malibu",
       "state": "CA",
-      "postalCode": "90264"
+      "postalCode": "90264",
+      "country": "USA"
     },
     "id": "111",
     "version": 1,
@@ -172,7 +183,8 @@
       "street": "1 Replicant Way",
       "city": "Los Angeles",
       "state": "CA",
-      "postalCode": "90001"
+      "postalCode": "90001",
+      "country": "USA"
     },
     "id": "112",
     "version": 1,
@@ -187,7 +199,8 @@
       "street": "16 Blue Blazer Way",
       "city": "Grover's Mill",
       "state": "NJ",
-      "postalCode": "08550"
+      "postalCode": "08550",
+      "country": "USA"
     },
     "id": "113",
     "version": 1,
@@ -202,7 +215,8 @@
       "street": "16 W 12 St.",
       "city": "New York",
       "state": "NY",
-      "postalCode": "10015"
+      "postalCode": "10015",
+      "country": "USA"
     },
     "id": "114",
     "version": 1,
@@ -217,7 +231,8 @@
       "street": "1811 Bolivar Terrace",
       "city": "Alexandria",
       "state": "VA",
-      "postalCode": "22334"
+      "postalCode": "22334",
+      "country": "USA"
     },
     "id": "115",
     "version": 1,
@@ -232,7 +247,8 @@
       "street": "47 Mozart Place",
       "city": "Newport News",
       "state": "VA",
-      "postalCode": "23612"
+      "postalCode": "23612",
+      "country": "USA"
     },
     "id": "201",
     "version": 1,
@@ -247,7 +263,8 @@
       "street": "89 Desplaines Ave",
       "city": "Colorado Springs",
       "state": "CO",
-      "postalCode": "80943"
+      "postalCode": "80943",
+      "country": "USA"
     },
     "id": "202",
     "version": 1,
@@ -262,7 +279,8 @@
       "street": "53 Donnelly Circle",
       "city": "Port Charlotte",
       "state": "FL",
-      "postalCode": "33981"
+      "postalCode": "33981",
+      "country": "USA"
     },
     "id": "203",
     "version": 1,
@@ -277,7 +295,8 @@
       "street": "851 Diversey St",
       "city": "Winterhaven",
       "state": "CA",
-      "postalCode": "92283"
+      "postalCode": "92283",
+      "country": "USA"
     },
     "id": "204",
     "version": 1,
@@ -292,7 +311,8 @@
       "street": "546 Baumbach Street",
       "city": "Lakeville",
       "state": "MI",
-      "postalCode": "48366"
+      "postalCode": "48366",
+      "country": "USA"
     },
     "id": "205",
     "version": 1,
@@ -307,7 +327,8 @@
       "street": "293 Muller Street",
       "city": "Potomac",
       "state": "MD",
-      "postalCode": "20854"
+      "postalCode": "20854",
+      "country": "USA"
     },
     "id": "206",
     "version": 1,
@@ -322,7 +343,8 @@
       "street": "282 Queens Road",
       "city": "Hampton",
       "state": "AR",
-      "postalCode": "71744"
+      "postalCode": "71744",
+      "country": "USA"
     },
     "id": "207",
     "version": 1,
@@ -337,7 +359,8 @@
       "street": "4689 Virgil Hill Drive",
       "city": "Quantico",
       "state": "VA",
-      "postalCode": "68699"
+      "postalCode": "68699",
+      "country": "USA"
     },
     "id": "208",
     "version": 1,
@@ -352,7 +375,8 @@
       "street": "558 San Jacinto Ave",
       "city": "Veneta",
       "state": "OR",
-      "postalCode": "97487"
+      "postalCode": "97487",
+      "country": "USA"
     },
     "id": "209",
     "version": 1,
@@ -367,7 +391,8 @@
       "street": "4767 Ibrahim St",
       "city": "Sidney",
       "state": "NE",
-      "postalCode": "69162"
+      "postalCode": "69162",
+      "country": "USA"
     },
     "id": "210",
     "version": 1,
