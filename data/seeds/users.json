@@ -3,6 +3,7 @@
     "displayName": "DCH Mortgages",
     "payeeId": "DCHM$101",
     "email": "info@dch-mortgages.com",
+    "userType": "corporation",
     "address": {
       "street": "1393 Caton St",
       "city": "Roxbury",
@@ -19,6 +20,7 @@
     "displayName": "Ill Communication Telephones",
     "payeeId": "BBOY$102",
     "email": "accounts@ill-comms.com",
+    "userType": "corporation",
     "address": {
       "street": "244 Grafton Ave",
       "city": "Longview",
@@ -35,6 +37,7 @@
     "displayName": "Erol's Internet",
     "payeeId": "EROL$103",
     "email": "payments@erols.net",
+    "userType": "corporation",
     "address": {
       "street": "1237 Lee Pl",
       "city": "Mullan",
@@ -51,6 +54,7 @@
     "displayName": "Acme Products, Inc",
     "payeeId": "ACME$104",
     "email": "coyote@acme.com",
+    "userType": "corporation",
     "address": {
       "street": "330 Pollard Pl",
       "city": "Belle Chasse",
@@ -67,6 +71,7 @@
     "displayName": "Shop-Rite Grocery Store",
     "payeeId": "SHOP$105",
     "email": "info@shoprite.com",
+    "userType": "corporation",
     "address": {
       "street": "702 Colby St",
       "city": "Lehigh Acres",
@@ -83,6 +88,7 @@
     "displayName": "Sushi Land",
     "payeeId": "SUSH$106",
     "email": "jay@sushi-land.org",
+    "userType": "corporation",
     "address": {
       "street": "629 Beulah St",
       "city": "Hanston",
@@ -99,6 +105,7 @@
     "displayName": "Worthless Peon Productions",
     "payeeId": "SCRUBS$107",
     "email": "ted@peons.music",
+    "userType": "corporation",
     "address": {
       "street": "459 Sam Lloyd Ave",
       "city": "Oxnard",
@@ -115,6 +122,7 @@
     "displayName": "The CX Institute",
     "payeeId": "PROFX$108",
     "email": "charles@xavier-institute.edu",
+    "userType": "corporation",
     "address": {
       "street": "1715 Greymalkin Lane",
       "city": "North Salem",
@@ -131,6 +139,7 @@
     "displayName": "The Senator Theater",
     "payeeId": "SENA$109",
     "email": "movies@thesenator.net",
+    "userType": "corporation",
     "address": {
       "street": "5904 North York Rd",
       "city": "Baltimore",
@@ -147,6 +156,7 @@
     "displayName": "Wayne Enterprises",
     "payeeId": "BATMAN$110",
     "email": "bruce@wayne.com",
+    "userType": "corporation",
     "address": {
       "street": "319 Thomas Wayne Road",
       "city": "Gotham",
@@ -163,6 +173,7 @@
     "displayName": "Stark Electronics",
     "payeeId": "IRNMN$11",
     "email": "happy@stark.com",
+    "userType": "corporation",
     "address": {
       "street": "1 Innovation Parkway",
       "city": "Malibu",
@@ -179,6 +190,7 @@
     "displayName": "Tyrell Corporation",
     "payeeId": "BLDRUNR$112",
     "email": "replicatant9867@mailserver.tyrell.com",
+    "userType": "corporation",
     "address": {
       "street": "1 Replicant Way",
       "city": "Los Angeles",
@@ -195,6 +207,7 @@
     "displayName": "Yoyodyne Propulsion Systems",
     "payeeId": "BUCKAROO$113",
     "email": "john-oconnor@yoyodyne.com",
+    "userType": "corporation",
     "address": {
       "street": "16 Blue Blazer Way",
       "city": "Grover's Mill",
@@ -211,6 +224,7 @@
     "displayName": "Goodman, Lieber, Kurtzberg, Holliway",
     "payeeId": "MARVEL$114",
     "email": "stan@theman.com",
+    "userType": "corporation",
     "address": {
       "street": "16 W 12 St.",
       "city": "New York",
@@ -227,6 +241,7 @@
     "displayName": "Rodriguez Outfitting",
     "payeeId": "RODR$115",
     "email": "harold@rodrguez.ops",
+    "userType": "corporation",
     "address": {
       "street": "1811 Bolivar Terrace",
       "city": "Alexandria",
@@ -243,6 +258,7 @@
     "displayName": "Jenny Sparks",
     "payeeId": "JENN$201",
     "email": "jenny@authority.org",
+    "userType": "person",
     "address": {
       "street": "47 Mozart Place",
       "city": "Newport News",
@@ -259,6 +275,7 @@
     "displayName": "Lucas Trent",
     "payeeId": "LUCA$202",
     "email": "midnighter@authority.org",
+    "userType": "person",
     "address": {
       "street": "89 Desplaines Ave",
       "city": "Colorado Springs",
@@ -275,6 +292,7 @@
     "displayName": "Jack Hawksmoor",
     "payeeId": "JACK$203",
     "email": "jack@authority.org",
+    "userType": "person",
     "address": {
       "street": "53 Donnelly Circle",
       "city": "Port Charlotte",
@@ -291,6 +309,7 @@
     "displayName": "Jeroen Thornedike",
     "payeeId": "JERO$204",
     "email": "thedoctor@authority.org",
+    "userType": "person",
     "address": {
       "street": "851 Diversey St",
       "city": "Winterhaven",
@@ -307,6 +326,7 @@
     "displayName": "Angela Cortez",
     "payeeId": "ANGE$205",
     "email": "engineer@authority.org",
+    "userType": "person",
     "address": {
       "street": "546 Baumbach Street",
       "city": "Lakeville",
@@ -323,6 +343,7 @@
     "displayName": "Shen Li-Min",
     "payeeId": "SHEN$206",
     "email": "shen@authority.org",
+    "userType": "person",
     "address": {
       "street": "293 Muller Street",
       "city": "Potomac",
@@ -339,6 +360,7 @@
     "displayName": "Spider Jerusalem",
     "payeeId": "SPID$207",
     "email": "spider@transmet.net",
+    "userType": "person",
     "address": {
       "street": "282 Queens Road",
       "city": "Hampton",
@@ -355,6 +377,7 @@
     "displayName": "Jakita Wagner",
     "payeeId": "JAKI$208",
     "email": "jakita@planetary.com",
+    "userType": "person",
     "address": {
       "street": "4689 Virgil Hill Drive",
       "city": "Quantico",
@@ -371,6 +394,7 @@
     "displayName": "Elijah Snow",
     "payeeId": "ELIJ$209",
     "email": "elijah@planetary.com",
+    "userType": "person",
     "address": {
       "street": "558 San Jacinto Ave",
       "city": "Veneta",
@@ -387,6 +411,7 @@
     "displayName": "Ambrose Chase",
     "payeeId": "AMBR$210",
     "email": "ambrose@planetary.com",
+    "userType": "person",
     "address": {
       "street": "4767 Ibrahim St",
       "city": "Sidney",
