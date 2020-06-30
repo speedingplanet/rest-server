@@ -12,10 +12,10 @@
 - [x] Server should generate some data (id, version, lastUpdated)
 - [x] Post-install script generates initial data (obviating call to generate)
 - [x] Generate pure JavaScript versions of data (for testing, use before fetch() is covered, etc.)
+- [x] Actual images for payees
 - [ ] Endpoint data can be generated on-the-fly
 - [ ] Configure a streaming resource (plugged into Faker or Chance)
 - [ ] Original files are backed up at startup
-- [ ] Actual images for payees
 - [ ] Shutdown (or going to /persist ?) writes data to combined file, splits it back out to individual files
 - [ ] Type definitions for DAOs
 - [ ] Generate addresses for other countries

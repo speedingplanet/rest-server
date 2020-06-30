@@ -107,7 +107,46 @@ function generatePayeeId(displayName) {
   );
 }
 
+function generateUserAvatar(user) {
+  const imageServiceUrl = 'https://randomuser.me/api/portraits';
+
+  if (user.userType === 'corporation') {
+    return {
+      large: `${imageServiceUrl}/lego/1.jpg`,
+      medium: `${imageServiceUrl}/med/lego/1.jpg`,
+      thumbnail: `${imageServiceUrl}/thumb/lego/1.jpg`,
+    };
+  } else if (user.userType === 'person') {
+    return {
+      large: `${imageServiceUrl}/${user.gender}/${user[user.gender] % 100}.jpg`,
+      medium: `${imageServiceUrl}/med/${user.gender}/${user[user.gender] % 100}.jpg`,
+      thumbnail: `${imageServiceUrl}/thumb/${user.gender}/${user[user.gender] % 100}.jpg`,
+    };
+  }
+}
+
 function generateUsers(count = 1) {
+  const personImageIds = {
+    men: 0,
+    women: 0,
+  };
+
+  const imageRegExp = /\/(men|women)\/(\d{1,2})\.jpg$/i;
+
+  seedUsers
+    .filter((user) => user.userType === 'person')
+    .forEach((user) => {
+      let [fullMatch, gender, count] = imageRegExp.exec(user.picture.large);
+
+      // Theoretically could return null
+      if (!fullMatch) return;
+      personImageIds[gender] = Math.max(personImageIds[gender], Number(count));
+    });
+
+  personImageIds.men++;
+  personImageIds.women++;
+  console.log('personImageIds: ', personImageIds);
+
   const users = new Array(count);
   const today = new Date();
 
@@ -125,10 +164,25 @@ function generateUsers(count = 1) {
     active: true,
   };
 
+  // genderCount % 2 ? 'female' : 'male'
+  let genderCount = 0;
+
   for (let x = 0; x < count; x++) {
+    let gender = genderCount++ % 2 ? 'men' : 'women';
+
     userProto.userType = chance.weighted(['person', 'corporation'], [4, 1]);
     if (userProto.userType === 'person') {
-      userProto.displayName = chance.name();
+      // @ts-ignore
+      userProto.displayName = chance.name({
+        gender: gender === 'men' ? 'male' : 'female',
+      });
+
+      userProto.picture = generateUserAvatar({
+        userType: 'person',
+        gender,
+        ...personImageIds,
+      });
+      personImageIds[gender]++;
 
       // TODO occasionally generate john@paxton.com
       userProto.email = `${userProto.displayName.replace(/\s/, '.')}@${_.sample([
@@ -141,6 +195,7 @@ function generateUsers(count = 1) {
       ])}`;
     } else if (userProto.userType === 'corporation') {
       userProto.displayName = _.sample(seedCompanies);
+      userProto.picture = generateUserAvatar({ userType: 'corporation' });
       userProto.email = `${_.sample(['accounts', 'info', 'payments'])}@${_.kebabCase(
         userProto.displayName,
       )}.${chance.weighted(['com', 'org', 'net', 'us'], [4, 1, 2, 1])}`;
