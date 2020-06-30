@@ -8,35 +8,7 @@ const seedUsers = require('../data/seeds/users.json');
 const seedCompanies = require('../data/seeds/companies.json');
 const { getReason } = require('./reasons');
 
-// Current problem: The spec is generated multiple times. It has to be generated once then re-used.
-
-/*
- * A generator spec should be an object with keys and either exact values or
- * a function ref that can generate said values.
- *
- * const payee = {
- *   displayName: generatePayeeName,
- *   version: 1,
- *   active: true
- *   ...etc
- * }
- *
- * The generator function iterates over the key/value pairs in the spec, doing
- * the following:
- *
- * switch (typeof spec[key]) {
- *   case 'function':
- *     spec[key]()
- *     break;
- *   case 'object':
- *     recurse;
- *   case 'null' (yes, actually 'object'):
- *     if (null) // Has to be assigned based on other information, like a categoryId in payee
- *   default:
- *     return spec[key]
- *
- *
- */
+const chance = new Chance();
 
 /*
   TODO: 
@@ -52,8 +24,6 @@ const { getReason } = require('./reasons');
 // ======================================================
 //     Utility Functions
 // ======================================================
-
-const chance = new Chance();
 
 function getBetterAddress() {
   const address = zipcodes.random();
@@ -92,6 +62,11 @@ function sequenceGenerator(start = 0, prefix = '') {
 function getMaxId(data, field = 'id') {
   // Numerically sorted array
   return _.map(data, field).sort((a, b) => b - a)[0];
+}
+
+function notThisOne(item, array) {
+  const sample = _.sample(array);
+  return sample !== item ? sample : notThisOne(item);
 }
 
 // ======================================================
@@ -162,6 +137,7 @@ function generateUsers(count = 1) {
         'aol.com',
         'yahoo.com',
         'comcast.com',
+        'hey.com',
       ])}`;
     } else if (userProto.userType === 'corporation') {
       userProto.displayName = _.sample(seedCompanies);
@@ -178,11 +154,6 @@ function generateUsers(count = 1) {
 
   // TODO: If the count is less than seedUsers, return a mix of seedUsers and generated users
   return combinedUsers.slice(0, count);
-}
-
-function notThisOne(item, array) {
-  const sample = _.sample(array);
-  return sample !== item ? sample : notThisOne(item);
 }
 
 function generateTransactions(count = 1, users = seedUsers) {
@@ -220,18 +191,11 @@ function generateTransactions(count = 1, users = seedUsers) {
     });
   }
 
-  // console.log(`Initial users: There are ${transactions.length} transactions.`);
-  // console.log(`Initial users: Transaction ids: ${transactions.map((tx) => tx.id)}`);
-
   if (count > users.length) {
     for (let x = users.length; x < count; x++) {
       transactions[x] = generate(txSpec);
-      // console.log(`x is ${x}, transaction id is ${transactions[x].id}`);
     }
   }
-
-  // console.log(`Remaining tx: There are ${transactions.length} transactions.`);
-  // console.log(`Remaining tx: Transaction ids: ${transactions.map((tx) => tx.id)}`);
 
   // Process payments
   const charges = transactions.filter((tx) => tx.txType === 'charge');
@@ -254,9 +218,6 @@ function generateTransactions(count = 1, users = seedUsers) {
       charge.version = charge.version + 1;
       payment.txDate = payment.lastUpdated = new Date(paymentTime).toISOString();
       transactions.push(payment);
-
-      // console.log('Charge id / txRef: ', charge.id, charge.txRef);
-      // console.log('Payment id / txRef: ', payment.id, payment.txRef);
     }
   });
 
