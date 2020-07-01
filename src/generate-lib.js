@@ -221,7 +221,7 @@ function generateTransactions(count = 1, users = seedUsers) {
 
   const txSpec = {
     id: sequenceGenerator(),
-    payorId: (tx) => _.sample(users).payeeId,
+    payorId: (tx) => _.sample(users).id,
     payeeId: (tx) => {
       return notThisOne(tx.payor, users).id;
     },
