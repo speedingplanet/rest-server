@@ -1,9 +1,6 @@
 /*
  * DAOs for this server
  *
- * Since we can assume data is always coming back as JSON, the JSON is always
- * parsed. No win in making students do that work.
- *
  * Data always comes back in an envelope like this:
  * {
  *   data: [] | {} | null // Actual data set, null on error or not found
@@ -16,20 +13,16 @@
  * }
  *
  * find<whatever>: fetch() style semantics, particularly that response codes >399 are NOT errors
- * query<whatever>: Axios style semantics, where response codes > 399 ARE errors
  *
- *
+ * TODOS:
  * Universal query options:
  * start: record to start with in the normal return set, inclusive
  * end: Record in the return set to end with, non-inclusive
  * limit: Return exactly this many records
- *
- * Other options
- * httpErrors: boolean, default false: Should http error statuses (>=400) be reported as an error?
  * delay: Delay the response this many seconds
  * returnType: null, array, object, native? (How do we implement native? )
  *
- * TODO:
+ * Should http error statuses (>=400) be reported as an error?
  * Currently locked in to the ZipPay model. Will try to make them modular in the future
  * Implement cancelable requests
  * Think about passing arguments through to underlying fetch?
@@ -68,9 +61,14 @@ function handleResponse(response, options) {
   if (response.ok || !options.httpErrors) {
     return response
       .json()
-      .then((data) => ({ data, response }))
-      .catch((err) =>
-        Promise.reject({ response, error: { code: -1, text: 'JSON Parse Error', err } }),
+      .then((data) => {
+        return { data, response };
+      })
+      .catch((error) =>
+        Promise.reject({
+          response,
+          error: { code: -1, text: 'JSON Parse Error', error },
+        }),
       );
   } else if (options.httpErrors) {
     return Promise.reject({
