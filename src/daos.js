@@ -33,16 +33,25 @@ import serverConfig from './server-config.js';
 const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints['zippay'].version}`;
 
 const defaultOptions = {
-  httpError: true,
+  httpError: false,
+  signal: null,
 };
 
+function getAbortController() {
+  return new AbortController();
+}
+
 function search(resource, options) {
-  return fetch(`${baseUrl}/${resource}`).then((response) =>
-    handleResponse(response, options),
+  const mergedOptions = { ...defaultOptions, ...options };
+
+  return fetch(`${baseUrl}/${resource}`, mergedOptions).then((response) =>
+    handleResponse(response, mergedOptions),
   );
 }
 
 function add(resource, data, options) {
+  const mergedOptions = { ...defaultOptions, ...options };
+
   const request = {
     method: 'POST',
     headers: {
@@ -52,9 +61,11 @@ function add(resource, data, options) {
 
   const body = JSON.stringify(data);
 
-  return fetch(`${baseUrl}/${resource}`, { ...request, body }).then((response) =>
-    handleResponse(response, options),
-  );
+  return fetch(`${baseUrl}/${resource}`, {
+    ...request,
+    body,
+    ...mergedOptions,
+  }).then((response) => handleResponse(response, mergedOptions));
 }
 
 function handleResponse(response, options) {
@@ -67,7 +78,7 @@ function handleResponse(response, options) {
       .catch((error) =>
         Promise.reject({
           response,
-          error: { code: -1, text: 'JSON Parse Error', error },
+          error: { code: -1, text: 'DAO Error', error },
         }),
       );
   } else if (options.httpErrors) {
@@ -116,6 +127,7 @@ const dao = {
   findAllUsers,
   findUserById,
   addUser,
+  getAbortController,
 };
 
 export { dao };
