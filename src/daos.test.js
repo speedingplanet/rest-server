@@ -42,21 +42,25 @@ describe('Cancel functionality', () => {
 
   it('rejects when aborted before resolved', async () => {
     const c = dao.getAbortController();
-    fetch.mockResponse(async () => {
+    fetch.mockResponseOnce(async () => {
       jest.advanceTimersByTime(60);
-      return '';
+      return '"empty"';
     });
-    setTimeout(() => c.abort(), 50);
-    await expect(dao.findAllUsers({ signal: c.signal })).rejects.toThrow();
+    setTimeout(() => {
+      c.abort();
+    }, 50);
+    return dao.findAllUsers({ signal: c.signal }).catch((error) => {
+      expect(error).toHaveProperty('text', 'Promise Aborted!');
+    });
   });
 
   it('does not reject when aborted after resolved', async () => {
     const c = dao.getAbortController();
-    fetch.mockResponse(async () => {
+    fetch.mockResponseOnce(async () => {
       jest.advanceTimersByTime(60);
-      return '';
+      return '""';
     });
     setTimeout(() => c.abort(), 75);
-    await expect(dao.findAllUsers({ signal: c.signal })).rejects.not.toThrow();
+    await expect(dao.findAllUsers({ signal: c.signal })).resolves.toHaveProperty('data');
   });
 });

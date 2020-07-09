@@ -44,9 +44,15 @@ function getAbortController() {
 function search(resource, options) {
   const mergedOptions = { ...defaultOptions, ...options };
 
-  return fetch(`${baseUrl}/${resource}`, mergedOptions).then((response) =>
-    handleResponse(response, mergedOptions),
-  );
+  return fetch(`${baseUrl}/${resource}?_delay=5000`, mergedOptions)
+    .then((response) => handleResponse(response, mergedOptions))
+    .catch((error) => {
+      return Promise.reject(
+        error instanceof DOMException
+          ? { code: -10, text: 'Promise Aborted!', error }
+          : error,
+      );
+    });
 }
 
 function add(resource, data, options) {
@@ -75,12 +81,12 @@ function handleResponse(response, options) {
       .then((data) => {
         return { data, response };
       })
-      .catch((error) =>
-        Promise.reject({
+      .catch((error) => {
+        return Promise.reject({
           response,
           error: { code: -1, text: 'DAO Error', error },
-        }),
-      );
+        });
+      });
   } else if (options.httpErrors) {
     return Promise.reject({
       data: getBadData(options.returnType),
