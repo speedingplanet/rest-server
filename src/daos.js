@@ -41,10 +41,26 @@ function getAbortController() {
   return new AbortController();
 }
 
-function search(resource, options) {
-  const mergedOptions = { ...defaultOptions, ...options };
+function optionsToQueryString(options = {}) {
+  const clonedOptions = { ...options };
+  const queryStringKeys = ['_delay'];
+  const queryString = {};
+  queryStringKeys.forEach((key) => {
+    if (!clonedOptions[key]) return;
+    queryString[key] = clonedOptions[key];
+    delete clonedOptions[key];
+  });
 
-  return fetch(`${baseUrl}/${resource}?_delay=5000`, mergedOptions)
+  return [new URLSearchParams(queryString).toString(), clonedOptions];
+}
+
+function search(resource, options) {
+  const [queryString, mergedOptions] = optionsToQueryString({
+    ...defaultOptions,
+    ...options,
+  });
+
+  return fetch(`${baseUrl}/${resource}?${queryString}`, mergedOptions)
     .then((response) => handleResponse(response, mergedOptions))
     .catch((error) => {
       return Promise.reject(
@@ -56,7 +72,10 @@ function search(resource, options) {
 }
 
 function add(resource, data, options) {
-  const mergedOptions = { ...defaultOptions, ...options };
+  const [queryString, mergedOptions] = optionsToQueryString({
+    ...defaultOptions,
+    ...options,
+  });
 
   const request = {
     method: 'POST',
@@ -67,7 +86,7 @@ function add(resource, data, options) {
 
   const body = JSON.stringify(data);
 
-  return fetch(`${baseUrl}/${resource}`, {
+  return fetch(`${baseUrl}/${resource}?${queryString}`, {
     ...request,
     body,
     ...mergedOptions,

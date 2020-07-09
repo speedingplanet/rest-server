@@ -13,6 +13,7 @@
 - [x] Post-install script generates initial data (obviating call to generate)
 - [x] Generate pure JavaScript versions of data (for testing, use before fetch() is covered, etc.)
 - [x] Actual images for payees
+- [x] Add testing for daos.js that works with Jest (which does not really support ES modules at the moment)
 - [ ] Endpoint data can be generated on-the-fly
 - [ ] Configure a streaming resource (plugged into Faker or Chance)
 - [ ] Original files are backed up at startup
@@ -21,4 +22,4 @@
 - [ ] Generate addresses for other countries
 - [ ] Clean up duplication between server-config.json and server-config.js
 - [ ] Commands (generate, clean, serve) should go in their own file?
-- [ ] Add testing for daos.js that works with Jest (which does not really support ES modules at the moment)
+- [ ] Add testing for daos.js/optionsToQueryString()
