@@ -11,7 +11,7 @@ export interface Address {
   street: string;
   city: string;
   state: string;
-  zip: string;
+  postalCode: string;
 }
 
 export interface User extends ZippayRecord {
@@ -44,3 +44,19 @@ export interface Transaction extends ZippayRecord {
 }
 
 export const transactions: Transaction[];
+
+export interface DaoData<T> {
+  response: Response;
+  data: T;
+}
+
+export interface Dao {
+  findAllTransactions: (options?: any) => Promise<DaoData<Transaction[]>>;
+  findTransactionById: (id: string, options?: any) => Promise<DaoData<Transaction>>;
+  findAllUsers: (options?: any) => Promise<DaoData<User[]>>;
+  findUserById: (options?: any) => Promise<DaoData<User>>;
+  addUser: (user: User) => Promise<DaoData<User>>;
+  getAbortController: () => AbortController;
+}
+
+export const dao: Dao;

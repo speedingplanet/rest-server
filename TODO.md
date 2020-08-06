@@ -14,11 +14,12 @@
 - [x] Generate pure JavaScript versions of data (for testing, use before fetch() is covered, etc.)
 - [x] Actual images for payees
 - [x] Add testing for daos.js that works with Jest (which does not really support ES modules at the moment)
+- [x] Type definitions for DAOs
+- [ ] Type definitions options in DAO
 - [ ] Endpoint data can be generated on-the-fly
 - [ ] Configure a streaming resource (plugged into Faker or Chance)
 - [ ] Original files are backed up at startup
 - [ ] Shutdown (or going to /persist ?) writes data to combined file, splits it back out to individual files
-- [ ] Type definitions for DAOs
 - [ ] Generate addresses for other countries
 - [ ] Clean up duplication between server-config.json and server-config.js
 - [ ] Commands (generate, clean, serve) should go in their own file?
