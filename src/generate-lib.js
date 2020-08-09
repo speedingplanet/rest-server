@@ -244,7 +244,7 @@ function generateTransactions(count = 1, users = seedUsers) {
   for (let userCount = 0; userCount < Math.min(count, users.length); userCount++) {
     transactions[userCount] = generate({
       ...txSpec,
-      payorId: users[userCount].payeeId,
+      payorId: users[userCount].id,
       txType: 'payment',
     });
   }
