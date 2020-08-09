@@ -24,3 +24,4 @@
 - [ ] Clean up duplication between server-config.json and server-config.js
 - [ ] Commands (generate, clean, serve) should go in their own file?
 - [ ] Add testing for daos.js/optionsToQueryString()
+- [ ] Refine generated amounts to be more accurate to the reason

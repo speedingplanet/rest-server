@@ -225,6 +225,9 @@ function generateTransactions(count = 1, users = seedUsers) {
     payeeId: (tx) => {
       return notThisOne(tx.payor, users).id;
     },
+    amount: () => {
+      return _.random(1, 25000) / 100;
+    },
     txDate: () => generateTimeStampBetween(dateFns.subYears(today, 1), today),
     txType: () => chance.weighted(['payment', 'charge'], [4, 1]),
     txStatus: (tx) => {
