@@ -96,7 +96,7 @@ function generate(spec, custom) {
   return instance;
 }
 
-function generatePayeeId(displayName) {
+function generateZipPayId(displayName) {
   return (
     displayName.replace(/\s/, '').substring(0, 4).toUpperCase() +
     '$' +
@@ -200,7 +200,7 @@ function generateUsers(count = 1) {
         userProto.displayName,
       )}.${chance.weighted(['com', 'org', 'net', 'us'], [4, 1, 2, 1])}`;
     }
-    userProto.payeeId = generatePayeeId(userProto.displayName);
+    userProto.zipPayId = generateZipPayId(userProto.displayName);
 
     users[x] = generate({ ...userProto, ...userSpec });
   }
@@ -284,7 +284,7 @@ function generateTransactions(count = 1, users = seedUsers) {
 
 module.exports = {
   generate,
-  generatePayeeId,
+  generateZipPayId,
   generateUsers,
   generateTransactions,
   getMaxId,
