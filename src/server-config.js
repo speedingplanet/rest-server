@@ -2,7 +2,7 @@ export default {
   endpoints: {
     zippay: {
       version: 1,
-      resources: ['users', 'transactions'],
+      resources: [ 'users', 'transactions' ],
     },
   },
   loadUnconfiguredFiles: false,

@@ -4,7 +4,7 @@ const { getMaxId, generate, generateTransactions } = require( './generate-lib' )
 const seedUsers = require( '../data/seeds/users.json' );
 
 test( 'finds the right max ID value', () => {
-  const data = [{ id: 1 }, { id: 2 }, { id: 3 }];
+  const data = [ { id: 1 }, { id: 2 }, { id: 3 } ];
   const maxId = getMaxId( data );
   expect( maxId ).toBe( 3 );
 } );

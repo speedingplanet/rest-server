@@ -43,7 +43,7 @@ function getAbortController() {
 
 function optionsToQueryString( options = {} ) {
   const clonedOptions = { ...options };
-  const queryStringKeys = ['_delay'];
+  const queryStringKeys = [ '_delay' ];
   const queryString = {};
   queryStringKeys.forEach( ( key ) => {
     if ( !clonedOptions[key] ) return;
@@ -51,12 +51,12 @@ function optionsToQueryString( options = {} ) {
     delete clonedOptions[key];
   } );
 
-  return [new URLSearchParams( queryString )
-    .toString(), clonedOptions];
+  return [ new URLSearchParams( queryString )
+    .toString(), clonedOptions ];
 }
 
 function search( resource, options ) {
-  const [queryString, mergedOptions] = optionsToQueryString( {
+  const [ queryString, mergedOptions ] = optionsToQueryString( {
     ...defaultOptions,
     ...options,
   } );
@@ -73,7 +73,7 @@ function search( resource, options ) {
 }
 
 function add( resource, data, options ) {
-  const [queryString, mergedOptions] = optionsToQueryString( {
+  const [ queryString, mergedOptions ] = optionsToQueryString( {
     ...defaultOptions,
     ...options,
   } );

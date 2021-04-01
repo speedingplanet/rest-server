@@ -3,9 +3,10 @@ module.exports = {
     browser: true,
     node: true,
   },
+  extends: [ 'standard', 'standard-with-typescript' ],
   rules: {
     semi: [ 'error', 'always' ],
-    'max-len': [ 'error', { code: 90, comments: 120, ignoreStrings: true } ],
+    'max-len': [ 'error', { code: 90, comments: 120, ignoreStrings: true, ignoreTemplateLiterals: true } ],
     'array-bracket-spacing': [ 'error', 'always' ],
     'space-before-function-paren': [ 'error', 'never' ],
     'comma-dangle': [ 'error', 'always-multiline' ],
@@ -16,4 +17,5 @@ module.exports = {
     'object-property-newline': [ 'error',
       { allowAllPropertiesOnSameLine: true } ],
   },
+  ignorePatterns: [ 'node_modules' ],
 };

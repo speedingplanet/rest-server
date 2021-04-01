@@ -22,7 +22,7 @@ describe( 'DAO tests with a failed response', () => {
 
   test( 'It should handle poorly formed JSON', () => {
     fetchMock.mockResponseOnce( () => {
-      let data = JSON.stringify( ['one'] );
+      let data = JSON.stringify( [ 'one' ] );
       data = data.slice( 0, -1 );
       return Promise.resolve( { body: data } );
     } );

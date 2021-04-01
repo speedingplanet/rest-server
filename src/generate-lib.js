@@ -29,7 +29,7 @@ function getBetterAddress() {
   const address = zipcodes.random();
 
   // AP AE AA are military bases
-  return address.state in ['AP', 'AE', 'AA'] ? zipcodes.random() : address;
+  return address.state in [ 'AP', 'AE', 'AA' ] ? zipcodes.random() : address;
 }
 
 function generateAddress() {
@@ -140,7 +140,7 @@ function generateUsers( count = 1 ) {
   seedUsers
     .filter( ( user ) => user.userType === 'person' )
     .forEach( ( user ) => {
-      const [fullMatch, gender, count] = imageRegExp.exec( user.picture.large );
+      const [ fullMatch, gender, count ] = imageRegExp.exec( user.picture.large );
 
       // Theoretically could return null
       if ( !fullMatch ) return;
@@ -174,7 +174,7 @@ function generateUsers( count = 1 ) {
   for ( let x = 0; x < count; x++ ) {
     const gender = genderCount++ % 2 ? 'men' : 'women';
 
-    userProto.userType = chance.weighted( ['person', 'corporation'], [4, 1] );
+    userProto.userType = chance.weighted( [ 'person', 'corporation' ], [ 4, 1 ] );
     if ( userProto.userType === 'person' ) {
       // @ts-ignore
       userProto.displayName = chance.name( {
@@ -200,16 +200,16 @@ function generateUsers( count = 1 ) {
     } else if ( userProto.userType === 'corporation' ) {
       userProto.displayName = _.sample( seedCompanies );
       userProto.picture = generateUserAvatar( { userType: 'corporation' } );
-      userProto.email = `${_.sample( ['accounts', 'info', 'payments'] )}@${_.kebabCase(
+      userProto.email = `${_.sample( [ 'accounts', 'info', 'payments' ] )}@${_.kebabCase(
         userProto.displayName,
-      )}.${chance.weighted( ['com', 'org', 'net', 'us'], [4, 1, 2, 1] )}`;
+      )}.${chance.weighted( [ 'com', 'org', 'net', 'us' ], [ 4, 1, 2, 1 ] )}`;
     }
     userProto.zipPayId = generateZipPayId( userProto.displayName );
 
     users[x] = generate( { ...userProto, ...userSpec } );
   }
 
-  const combinedUsers = [...seedUsers, ...users];
+  const combinedUsers = [ ...seedUsers, ...users ];
 
   // TODO: If the count is less than seedUsers, return a mix of seedUsers and generated users
   return combinedUsers.slice( 0, count );
@@ -232,7 +232,7 @@ function generateTransactions( count = 1, users = seedUsers ) {
       return _.random( 1, 25000 ) / 100;
     },
     txDate: () => generateTimeStampBetween( dateFns.subYears( today, 1 ), today ),
-    txType: () => chance.weighted( ['payment', 'charge'], [4, 1] ),
+    txType: () => chance.weighted( [ 'payment', 'charge' ], [ 4, 1 ] ),
     txStatus: ( tx ) => {
       return tx.txType === 'payment' ? 'settled' : 'open';
     },

@@ -22,7 +22,9 @@ describe( 'Reasons by type', () => {
   } );
 
   test( 'Should return a general reason', () => {
-    const foundReasons = generatedReasons.filter( ( r ) => reasons.general.includes( r ) );
+    const foundReasons = generatedReasons.filter(
+      ( r ) => reasons.general.includes( r ),
+    );
     expect( generatedReasons.length ).toBeGreaterThan( 1 );
     expect( foundReasons.length ).toBeGreaterThan( 1 );
   } );
