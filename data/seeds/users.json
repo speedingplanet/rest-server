@@ -1,7 +1,7 @@
 [
   {
     "displayName": "DCH Mortgages",
-    "payeeId": "DCHM$101",
+    "zipPayId": "DCHM$101",
     "email": "info@dch-mortgages.com",
     "userType": "corporation",
     "picture": {
@@ -23,7 +23,7 @@
   },
   {
     "displayName": "Ill Communication Telephones",
-    "payeeId": "BBOY$102",
+    "zipPayId": "BBOY$102",
     "email": "accounts@ill-comms.com",
     "userType": "corporation",
     "picture": {
@@ -45,7 +45,7 @@
   },
   {
     "displayName": "Erol's Internet",
-    "payeeId": "EROL$103",
+    "zipPayId": "EROL$103",
     "email": "payments@erols.net",
     "userType": "corporation",
     "picture": {
@@ -67,7 +67,7 @@
   },
   {
     "displayName": "Acme Products, Inc",
-    "payeeId": "ACME$104",
+    "zipPayId": "ACME$104",
     "email": "coyote@acme.com",
     "userType": "corporation",
     "picture": {
@@ -89,7 +89,7 @@
   },
   {
     "displayName": "Shop-Rite Grocery Store",
-    "payeeId": "SHOP$105",
+    "zipPayId": "SHOP$105",
     "email": "info@shoprite.com",
     "userType": "corporation",
     "picture": {
@@ -111,7 +111,7 @@
   },
   {
     "displayName": "Sushi Land",
-    "payeeId": "SUSH$106",
+    "zipPayId": "SUSH$106",
     "email": "jay@sushi-land.org",
     "userType": "corporation",
     "picture": {
@@ -133,7 +133,7 @@
   },
   {
     "displayName": "Worthless Peon Productions",
-    "payeeId": "SCRUBS$107",
+    "zipPayId": "SCRUBS$107",
     "email": "ted@peons.music",
     "userType": "corporation",
     "picture": {
@@ -155,7 +155,7 @@
   },
   {
     "displayName": "The CX Institute",
-    "payeeId": "PROFX$108",
+    "zipPayId": "PROFX$108",
     "email": "charles@xavier-institute.edu",
     "userType": "corporation",
     "picture": {
@@ -177,7 +177,7 @@
   },
   {
     "displayName": "The Senator Theater",
-    "payeeId": "SENA$109",
+    "zipPayId": "SENA$109",
     "email": "movies@thesenator.net",
     "userType": "corporation",
     "picture": {
@@ -199,7 +199,7 @@
   },
   {
     "displayName": "Wayne Enterprises",
-    "payeeId": "BATMAN$110",
+    "zipPayId": "BATMAN$110",
     "email": "bruce@wayne.com",
     "userType": "corporation",
     "picture": {
@@ -221,7 +221,7 @@
   },
   {
     "displayName": "Stark Electronics",
-    "payeeId": "IRNMN$11",
+    "zipPayId": "IRNMN$11",
     "email": "happy@stark.com",
     "userType": "corporation",
     "picture": {
@@ -243,7 +243,7 @@
   },
   {
     "displayName": "Tyrell Corporation",
-    "payeeId": "BLDRUNR$112",
+    "zipPayId": "BLDRUNR$112",
     "email": "replicatant9867@mailserver.tyrell.com",
     "userType": "corporation",
     "picture": {
@@ -265,7 +265,7 @@
   },
   {
     "displayName": "Yoyodyne Propulsion Systems",
-    "payeeId": "BUCKAROO$113",
+    "zipPayId": "BUCKAROO$113",
     "email": "john-oconnor@yoyodyne.com",
     "userType": "corporation",
     "picture": {
@@ -287,7 +287,7 @@
   },
   {
     "displayName": "Goodman, Lieber, Kurtzberg, Holliway",
-    "payeeId": "MARVEL$114",
+    "zipPayId": "MARVEL$114",
     "email": "stan@theman.com",
     "userType": "corporation",
     "picture": {
@@ -309,7 +309,7 @@
   },
   {
     "displayName": "Rodriguez Outfitting",
-    "payeeId": "RODR$115",
+    "zipPayId": "RODR$115",
     "email": "harold@rodrguez.ops",
     "userType": "corporation",
     "picture": {
@@ -331,7 +331,7 @@
   },
   {
     "displayName": "Jenny Sparks",
-    "payeeId": "JENN$201",
+    "zipPayId": "JENN$201",
     "email": "jenny@authority.org",
     "userType": "person",
     "picture": {
@@ -353,7 +353,7 @@
   },
   {
     "displayName": "Lucas Trent",
-    "payeeId": "LUCA$202",
+    "zipPayId": "LUCA$202",
     "email": "midnighter@authority.org",
     "userType": "person",
     "picture": {
@@ -375,7 +375,7 @@
   },
   {
     "displayName": "Jack Hawksmoor",
-    "payeeId": "JACK$203",
+    "zipPayId": "JACK$203",
     "email": "jack@authority.org",
     "userType": "person",
     "picture": {
@@ -397,7 +397,7 @@
   },
   {
     "displayName": "Jeroen Thornedike",
-    "payeeId": "JERO$204",
+    "zipPayId": "JERO$204",
     "email": "thedoctor@authority.org",
     "userType": "person",
     "picture": {
@@ -419,7 +419,7 @@
   },
   {
     "displayName": "Angela Cortez",
-    "payeeId": "ANGE$205",
+    "zipPayId": "ANGE$205",
     "email": "engineer@authority.org",
     "userType": "person",
     "picture": {
@@ -441,7 +441,7 @@
   },
   {
     "displayName": "Shen Li-Min",
-    "payeeId": "SHEN$206",
+    "zipPayId": "SHEN$206",
     "email": "shen@authority.org",
     "userType": "person",
     "picture": {
@@ -463,7 +463,7 @@
   },
   {
     "displayName": "Spider Jerusalem",
-    "payeeId": "SPID$207",
+    "zipPayId": "SPID$207",
     "email": "spider@transmet.net",
     "userType": "person",
     "picture": {
@@ -485,7 +485,7 @@
   },
   {
     "displayName": "Jakita Wagner",
-    "payeeId": "JAKI$208",
+    "zipPayId": "JAKI$208",
     "email": "jakita@planetary.com",
     "userType": "person",
     "picture": {
@@ -507,7 +507,7 @@
   },
   {
     "displayName": "Elijah Snow",
-    "payeeId": "ELIJ$209",
+    "zipPayId": "ELIJ$209",
     "email": "elijah@planetary.com",
     "userType": "person",
     "picture": {
@@ -529,7 +529,7 @@
   },
   {
     "displayName": "Ambrose Chase",
-    "payeeId": "AMBR$210",
+    "zipPayId": "AMBR$210",
     "email": "ambrose@planetary.com",
     "userType": "person",
     "picture": {

@@ -1,10 +1,10 @@
 {
   "name": "@speedingplanet/rest-server",
-  "version": "0.0.13",
+  "version": "1.0.0",
   "description": "Speeding Planet's REST server",
   "main": "index.js",
   "dependencies": {
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "chance": "^1.1.4",
     "date-fns": "^2.12.0",
     "faker": "^4.1.0",
@@ -13,7 +13,7 @@
     "json-server": "^0.16.1",
     "lodash": "^4.17.15",
     "meow": "^6.1.1",
-    "pug": "^2.0.4",
+    "pug": "^3.0.0",
     "zipcodes": "^8.0.0"
   },
   "devDependencies": {
@@ -21,7 +21,7 @@
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "babel-jest": "^26.1.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "jest": "^26.1.0",
     "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.0.5"
