@@ -11,13 +11,10 @@ describe( 'DAO tests with a failed response', () => {
     };
     fetchMock.mockResponseOnce( () => Promise.resolve( httpError ) );
 
-    return dao.findAllTransactions()
-      .then( ( res ) => {
-        expect( res.response.status )
-          .toEqual( httpError.status );
-        expect( res.data )
-          .toEqual( [] );
-      } );
+    return dao.findAllTransactions().then( ( res ) => {
+      expect( res.response.status ).toEqual( httpError.status );
+      expect( res.data ).toEqual( [] );
+    } );
   } );
 
   test( 'It should handle poorly formed JSON', () => {
@@ -27,15 +24,11 @@ describe( 'DAO tests with a failed response', () => {
       return Promise.resolve( { body: data } );
     } );
 
-    return dao.findAllTransactions()
-      .catch( ( error ) => {
-        expect( error )
-          .toBeDefined();
-        expect( error.error.text )
-          .toEqual( 'DAO Error' );
-        expect( error.error.code )
-          .toBe( -1 );
-      } );
+    return dao.findAllTransactions().catch( ( error ) => {
+      expect( error ).toBeDefined();
+      expect( error.error.text ).toEqual( 'DAO Error' );
+      expect( error.error.code ).toBe( -1 );
+    } );
   } );
 } );
 
@@ -59,11 +52,9 @@ describe( 'Cancel functionality', () => {
     setTimeout( () => {
       c.abort();
     }, 50 );
-    return dao.findAllUsers( { signal: c.signal } )
-      .catch( ( error ) => {
-        expect( error )
-          .toHaveProperty( 'text', 'Promise Aborted!' );
-      } );
+    return dao.findAllUsers( { signal: c.signal } ).catch( ( error ) => {
+      expect( error ).toHaveProperty( 'text', 'Promise Aborted!' );
+    } );
   } );
 
   it( 'does not reject when aborted after resolved', async() => {
@@ -73,6 +64,8 @@ describe( 'Cancel functionality', () => {
       return '""';
     } );
     setTimeout( () => c.abort(), 75 );
-    await expect( dao.findAllUsers( { signal: c.signal } ) ).resolves.toHaveProperty( 'data' );
+    await expect(
+      dao.findAllUsers( { signal: c.signal } ),
+    ).resolves.toHaveProperty( 'data' );
   } );
 } );

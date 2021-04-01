@@ -31,6 +31,8 @@
 
 import { DAOError } from './DAOError.js';
 import serverConfig from './server-config.js';
+
+// eslint-disable-next-line max-len
 const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints.zippay.version}`;
 
 const defaultOptions = {

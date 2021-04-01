@@ -37,7 +37,12 @@
     "start": "node src/server.js start",
     "install": "node src/server.js generate",
     "generate": "node src/server.js generate",
-    "clean": "node src/server.js clean"
+    "clean": "node src/server.js clean",
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "lint": "eslint src --ext=js",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier -c src/",
+    "prettier:fix": "prettier -c --write src/"
   },
   "repository": {
     "type": "git",

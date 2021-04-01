@@ -48,8 +48,7 @@ function generateAddress() {
 function generateTimeStampBetween( startDate, endDate ) {
   const startTime = startDate.getTime();
   const endTime = endDate.getTime();
-  return new Date( _.random( startTime, endTime ) )
-    .toISOString();
+  return new Date( _.random( startTime, endTime ) ).toISOString();
 }
 
 function sequenceGenerator( start = 0, prefix = '' ) {
@@ -62,8 +61,7 @@ function sequenceGenerator( start = 0, prefix = '' ) {
 
 function getMaxId( data, field = 'id' ) {
   // Numerically sorted array
-  return _.map( data, field )
-    .sort( ( a, b ) => b - a )[0];
+  return _.map( data, field ).sort( ( a, b ) => b - a )[0];
 }
 
 function notThisOne( item, array ) {
@@ -100,8 +98,7 @@ function generate( spec, custom ) {
 
 function generateZipPayId( displayName ) {
   return (
-    displayName.replace( /\s/, '' )
-      .substring( 0, 4 )
+    displayName.replace( /\s/, '' ).substring( 0, 4 )
       .toUpperCase() +
     '$' +
     chance.hash( {
@@ -123,8 +120,12 @@ function generateUserAvatar( user ) {
   } else if ( user.userType === 'person' ) {
     return {
       large: `${imageServiceUrl}/${user.gender}/${user[user.gender] % 100}.jpg`,
-      medium: `${imageServiceUrl}/med/${user.gender}/${user[user.gender] % 100}.jpg`,
-      thumbnail: `${imageServiceUrl}/thumb/${user.gender}/${user[user.gender] % 100}.jpg`,
+      medium: `${imageServiceUrl}/med/${user.gender}/${
+        user[user.gender] % 100
+      }.jpg`,
+      thumbnail: `${imageServiceUrl}/thumb/${user.gender}/${
+        user[user.gender] % 100
+      }.jpg`,
     };
   }
 }
@@ -164,7 +165,8 @@ function generateUsers( count = 1 ) {
     address: generateAddress,
     id: sequenceGenerator( getMaxId( seedUsers ) ),
     version: 1,
-    lastUpdated: () => generateTimeStampBetween( dateFns.subYears( today, 1 ), today ),
+    lastUpdated: () =>
+      generateTimeStampBetween( dateFns.subYears( today, 1 ), today ),
     active: true,
   };
 
@@ -189,7 +191,10 @@ function generateUsers( count = 1 ) {
       personImageIds[gender]++;
 
       // TODO occasionally generate john@paxton.com
-      userProto.email = `${userProto.displayName.replace( /\s/, '.' )}@${_.sample( [
+      userProto.email = `${userProto.displayName.replace(
+        /\s/,
+        '.',
+      )}@${_.sample( [
         'gmail.com',
         'hotmail.com',
         'aol.com',
@@ -200,9 +205,14 @@ function generateUsers( count = 1 ) {
     } else if ( userProto.userType === 'corporation' ) {
       userProto.displayName = _.sample( seedCompanies );
       userProto.picture = generateUserAvatar( { userType: 'corporation' } );
-      userProto.email = `${_.sample( [ 'accounts', 'info', 'payments' ] )}@${_.kebabCase(
-        userProto.displayName,
-      )}.${chance.weighted( [ 'com', 'org', 'net', 'us' ], [ 4, 1, 2, 1 ] )}`;
+      userProto.email = `${_.sample( [
+        'accounts',
+        'info',
+        'payments',
+      ] )}@${_.kebabCase( userProto.displayName )}.${chance.weighted(
+        [ 'com', 'org', 'net', 'us' ],
+        [ 4, 1, 2, 1 ],
+      )}`;
     }
     userProto.zipPayId = generateZipPayId( userProto.displayName );
 
@@ -216,8 +226,12 @@ function generateUsers( count = 1 ) {
 }
 
 function generateTransactions( count = 1, users = seedUsers ) {
-  if ( !Array.isArray( users ) ) { console.error( 'Need an array of users to generate transactions' ); }
-  if ( count < users.length ) console.warn( 'Not every user will have a transaction' );
+  if ( !Array.isArray( users ) ) {
+    console.error( 'Need an array of users to generate transactions' );
+  }
+  if ( count < users.length ) {
+    console.warn( 'Not every user will have a transaction' );
+  }
 
   const today = new Date();
   const transactions = [];
@@ -244,7 +258,11 @@ function generateTransactions( count = 1, users = seedUsers ) {
   };
 
   // Every user should have paid at least once.
-  for ( let userCount = 0; userCount < Math.min( count, users.length ); userCount++ ) {
+  for (
+    let userCount = 0;
+    userCount < Math.min( count, users.length );
+    userCount++
+  ) {
     transactions[userCount] = generate( {
       ...txSpec,
       payorId: users[userCount].zipPayId,
@@ -268,10 +286,8 @@ function generateTransactions( count = 1, users = seedUsers ) {
       // @ts-ignore
       spec.txStatus = 'settled';
 
-      const chargeTime = new Date( charge.txDate )
-        .getTime();
-      let paymentTime = dateFns.addDays( chargeTime, _.random( 1, 10 ) )
-        .getTime();
+      const chargeTime = new Date( charge.txDate ).getTime();
+      let paymentTime = dateFns.addDays( chargeTime, _.random( 1, 10 ) ).getTime();
       paymentTime = Math.min( paymentTime, today.getTime() );
 
       const payment = generate( spec );
@@ -279,8 +295,9 @@ function generateTransactions( count = 1, users = seedUsers ) {
       charge.txRef = payment.id;
       charge.txStatus = 'settled';
       charge.version = charge.version + 1;
-      payment.txDate = payment.lastUpdated = new Date( paymentTime )
-        .toISOString();
+      payment.txDate = payment.lastUpdated = new Date(
+        paymentTime,
+      ).toISOString();
       transactions.push( payment );
     }
   } );

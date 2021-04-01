@@ -6,7 +6,7 @@ module.exports = {
   extends: [ 'standard', 'standard-with-typescript' ],
   rules: {
     semi: [ 'error', 'always' ],
-    'max-len': [ 'error', { code: 90, comments: 120, ignoreStrings: true, ignoreTemplateLiterals: true } ],
+    'max-len': [ 'error', { code: 90, comments: 120 } ],
     'array-bracket-spacing': [ 'error', 'always' ],
     'space-before-function-paren': [ 'error', 'never' ],
     'comma-dangle': [ 'error', 'always-multiline' ],

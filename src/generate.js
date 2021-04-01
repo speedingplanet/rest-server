@@ -15,20 +15,18 @@ function writeToFile( fileName, data ) {
   if ( path.extname( fileName ) === '.json' ) {
     writePromise = fs.outputJSON( fileName, data, { spaces: 2 } );
   } else if ( path.extname( fileName ) === '.js' ) {
-    const output = prettier.format( `export default ${JSON.stringify( data )}`,
-      {
-        singleQuote: true,
-        jsxSingleQuote: false,
-        trailingComma: 'all',
-        printWidth: 90,
-        parser: 'babel',
-      } );
+    const output = prettier.format( `export default ${JSON.stringify( data )}`, {
+      singleQuote: true,
+      jsxSingleQuote: false,
+      trailingComma: 'all',
+      printWidth: 90,
+      parser: 'babel',
+    } );
     writePromise = fs.outputFile( fileName, output );
   } else {
     Promise.reject( new Error( 'writeToFile failed!' ) );
   }
-  return writePromise
-    .then( () => console.log( 'generated to file: ', fileName ) );
+  return writePromise.then( () => console.log( 'generated to file: ', fileName ) );
 }
 
 // ======================================================
@@ -126,7 +124,10 @@ async function generateData( config ) {
       try {
         output.users = await fs.readJSON( config.types.users );
       } catch ( error ) {
-        console.error( `Could not read users input file ${config.types.users}:`, error );
+        console.error(
+          `Could not read users input file ${config.types.users}:`,
+          error,
+        );
         throw new Error( error );
       }
     }
@@ -151,13 +152,22 @@ async function generateData( config ) {
           console.log( `Writing to ${type}.json` );
           // writeToFile( `${__dirname}/../data/generated/${type}.json`, output[type] );
           return [
-            writeToFile( path.join( __dirname, '..', 'data', 'generated', `${type}.json` ), output[type] ),
-            writeToFile( path.join( __dirname, '..', 'data', 'generated', `${type}.js` ), output[type] ),
+            writeToFile(
+              path.join( __dirname, '..', 'data', 'generated', `${type}.json` ),
+              output[type],
+            ),
+            writeToFile(
+              path.join( __dirname, '..', 'data', 'generated', `${type}.js` ),
+              output[type],
+            ),
           ];
         } ),
       );
     } catch ( error ) {
-      console.error( `Could not write to file ${error.fileName} because `, error.error );
+      console.error(
+        `Could not write to file ${error.fileName} because `,
+        error.error,
+      );
       throw new Error( error );
     }
   }
