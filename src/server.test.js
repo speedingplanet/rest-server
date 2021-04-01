@@ -1,13 +1,15 @@
-const { getNextId } = require('./server');
+/* eslint-env jest */
 
-test('Should find the highest id value', () => {
+const { getNextId } = require( './server' );
+
+test( 'Should find the highest id value', () => {
   const users = getTestData();
-  const maxId = Number(users[users.length - 1].id);
+  const maxId = Number( users[users.length - 1].id );
 
-  const foundMaxId = getNextId(users, 'id', 0);
+  const foundMaxId = getNextId( users, 'id', 0 );
 
-  expect(foundMaxId).toEqual(maxId);
-});
+  expect( foundMaxId ).toEqual( maxId );
+} );
 
 function getTestData() {
   return [

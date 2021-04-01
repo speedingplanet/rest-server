@@ -25,3 +25,4 @@
 - [ ] Commands (generate, clean, serve) should go in their own file?
 - [ ] Add testing for daos.js/optionsToQueryString()
 - [ ] Refine generated amounts to be more accurate to the reason
+- [ ] Update repo to use StandardX for formatting (next time I touch code instead of deps)

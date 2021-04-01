@@ -75,6 +75,7 @@ async function main(config) {
 
   const server = jsonServer.create();
   server.set('views', path.join(__dirname, '../views/'));
+  server.engine('pug', require('pug').__express);
   server.set('view engine', 'pug');
   const router = jsonServer.router(data);
   const middlewares = jsonServer.defaults();

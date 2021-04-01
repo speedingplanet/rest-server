@@ -29,11 +29,11 @@
  *
  */
 
+import { DAOError } from './DAOError.js';
 import serverConfig from './server-config.js';
-const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints['zippay'].version}`;
+const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints.zippay.version}`;
 
 const defaultOptions = {
-  httpError: false,
   signal: null,
 };
 
@@ -41,41 +41,42 @@ function getAbortController() {
   return new AbortController();
 }
 
-function optionsToQueryString(options = {}) {
+function optionsToQueryString( options = {} ) {
   const clonedOptions = { ...options };
   const queryStringKeys = ['_delay'];
   const queryString = {};
-  queryStringKeys.forEach((key) => {
-    if (!clonedOptions[key]) return;
+  queryStringKeys.forEach( ( key ) => {
+    if ( !clonedOptions[key] ) return;
     queryString[key] = clonedOptions[key];
     delete clonedOptions[key];
-  });
+  } );
 
-  return [new URLSearchParams(queryString).toString(), clonedOptions];
+  return [new URLSearchParams( queryString )
+    .toString(), clonedOptions];
 }
 
-function search(resource, options) {
-  const [queryString, mergedOptions] = optionsToQueryString({
+function search( resource, options ) {
+  const [queryString, mergedOptions] = optionsToQueryString( {
     ...defaultOptions,
     ...options,
-  });
+  } );
 
-  return fetch(`${baseUrl}/${resource}?${queryString}`, mergedOptions)
-    .then((response) => handleResponse(response, mergedOptions))
-    .catch((error) => {
+  return fetch( `${baseUrl}/${resource}?${queryString}`, mergedOptions )
+    .then( ( response ) => handleResponse( response, mergedOptions ) )
+    .catch( ( error ) => {
       return Promise.reject(
         error instanceof DOMException
           ? { code: -10, text: 'Promise Aborted!', error }
           : error,
       );
-    });
+    } );
 }
 
-function add(resource, data, options) {
-  const [queryString, mergedOptions] = optionsToQueryString({
+function add( resource, data, options ) {
+  const [queryString, mergedOptions] = optionsToQueryString( {
     ...defaultOptions,
     ...options,
-  });
+  } );
 
   const request = {
     method: 'POST',
@@ -84,66 +85,50 @@ function add(resource, data, options) {
     },
   };
 
-  const body = JSON.stringify(data);
+  const body = JSON.stringify( data );
 
-  return fetch(`${baseUrl}/${resource}?${queryString}`, {
+  return fetch( `${baseUrl}/${resource}?${queryString}`, {
     ...request,
     body,
     ...mergedOptions,
-  }).then((response) => handleResponse(response, mergedOptions));
+  } )
+    .then( ( response ) => handleResponse( response, mergedOptions ) );
 }
 
-function handleResponse(response, options) {
-  if (response.ok || !options.httpErrors) {
-    return response
-      .json()
-      .then((data) => {
-        return { data, response };
-      })
+function handleResponse( response, options ) {
+  if ( response.ok ) {
+    response.json()
+      .then( ( data ) => { return { data, response }; } );
+    // eslint-disable-next-line
+      /*
       .catch((error) => {
-        return Promise.reject({
-          response,
-          error: { code: -1, text: 'DAO Error', error },
-        });
+        throw new DAOError(response, 'JSON parsing error');
       });
-  } else if (options.httpErrors) {
-    return Promise.reject({
-      data: getBadData(options.returnType),
-      response,
-      error: { code: response.status, text: response.statusText },
-    });
+      */
+  } else {
+    return Promise.reject( new DAOError(
+      response ) );
   }
 }
 
-function findAllTransactions(options) {
-  return search('transactions', { ...options, returnType: 'array' });
+function findAllTransactions( options ) {
+  return search( 'transactions', { ...options, returnType: 'array' } );
 }
 
-function findTransactionById(id, options) {
-  return search(`transactions/${id}`, { ...options, returnType: 'object' });
+function findTransactionById( id, options ) {
+  return search( `transactions/${id}`, { ...options, returnType: 'object' } );
 }
 
-function findAllUsers(options) {
-  return search('users', { ...options, returnType: 'array' });
+function findAllUsers( options ) {
+  return search( 'users', { ...options, returnType: 'array' } );
 }
 
-function findUserById(id, options) {
-  return search(`users/${id}`, { ...options, returnType: 'object' });
+function findUserById( id, options ) {
+  return search( `users/${id}`, { ...options, returnType: 'object' } );
 }
 
-function addUser(user) {
-  return add('users', user);
-}
-
-function getBadData(returnType) {
-  switch (returnType) {
-    case 'array':
-      return [];
-    case 'object':
-      return {};
-    default:
-      return null;
-  }
+function addUser( user ) {
+  return add( 'users', user );
 }
 
 const dao = {
