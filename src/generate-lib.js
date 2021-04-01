@@ -224,9 +224,9 @@ function generateTransactions( count = 1, users = seedUsers ) {
 
   const txSpec = {
     id: sequenceGenerator(),
-    payorId: ( tx ) => _.sample( users ).id,
+    payorId: ( tx ) => _.sample( users ).zipPayId,
     payeeId: ( tx ) => {
-      return notThisOne( tx.payor, users ).id;
+      return notThisOne( tx.payor, users ).zipPayId;
     },
     amount: () => {
       return _.random( 1, 25000 ) / 100;
@@ -247,7 +247,7 @@ function generateTransactions( count = 1, users = seedUsers ) {
   for ( let userCount = 0; userCount < Math.min( count, users.length ); userCount++ ) {
     transactions[userCount] = generate( {
       ...txSpec,
-      payorId: users[userCount].id,
+      payorId: users[userCount].zipPayId,
       txType: 'payment',
     } );
   }

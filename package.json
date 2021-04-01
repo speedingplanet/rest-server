@@ -13,6 +13,7 @@
     "json-server": "^0.16.1",
     "lodash": "^4.17.15",
     "meow": "^6.1.1",
+    "prettier": "^2.2.1",
     "pug": "^3.0.0",
     "standardx": "^7.0.0",
     "zipcodes": "^8.0.0"

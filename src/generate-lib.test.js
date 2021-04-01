@@ -107,7 +107,7 @@ test( 'All users have at least one payment', () => {
 
   const everyResult = users.every( ( user ) => {
     return transactions.find( ( t ) => {
-      return t.payorId === user.payeeId;
+      return t.payorId === user.zipPayId;
     } );
   } );
 
