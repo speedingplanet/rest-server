@@ -22,16 +22,18 @@ describe( 'Reasons by type', () => {
   } );
 
   test( 'Should return a general reason', () => {
-    const foundReasons = generatedReasons.filter(
-      ( r ) => reasons.general.includes( r ),
+    const foundReasons = generatedReasons.filter( ( r ) =>
+      reasons.general.includes( r ),
     );
     expect( generatedReasons.length ).toBeGreaterThan( 1 );
     expect( foundReasons.length ).toBeGreaterThan( 1 );
   } );
 
   test( 'Should return a "$foo tickets" reason', () => {
-    const ticketReasons = reasons.tickets.map( r => `${r} tickets` );
-    const foundReasons = generatedReasons.filter( ( r ) => ticketReasons.includes( r ) );
+    const ticketReasons = reasons.tickets.map( ( r ) => `${r} tickets` );
+    const foundReasons = generatedReasons.filter( ( r ) =>
+      ticketReasons.includes( r ),
+    );
     expect( generatedReasons.length ).toBeGreaterThan( 1 );
     expect( foundReasons.length ).toBeGreaterThan( 1 );
   } );
@@ -41,7 +43,7 @@ describe( 'Reasons by type', () => {
   } );
 
   test( 'Should include a "dinner at $foo" reason', () => {
-    const dinnerReasons = reasons['dinner at'].map( r => `dinner at ${r}` );
+    const dinnerReasons = reasons['dinner at'].map( ( r ) => `dinner at ${r}` );
     expect( generatedReasons.length ).toBeGreaterThan( 1 );
     expect( dinnerReasons.length ).toBeGreaterThan( 1 );
   } );

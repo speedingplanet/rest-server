@@ -35,12 +35,13 @@ import serverConfig from './server-config.js';
 // eslint-disable-next-line max-len
 const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints.zippay.version}`;
 
+const abortController = new AbortController();
 const defaultOptions = {
-  signal: null,
+  signal: abortController.signal,
 };
 
 function getAbortController() {
-  return new AbortController();
+  return abortController;
 }
 
 function optionsToQueryString( options = {} ) {
@@ -53,8 +54,7 @@ function optionsToQueryString( options = {} ) {
     delete clonedOptions[key];
   } );
 
-  return [ new URLSearchParams( queryString )
-    .toString(), clonedOptions ];
+  return [ new URLSearchParams( queryString ).toString(), clonedOptions ];
 }
 
 function search( resource, options ) {
@@ -93,40 +93,41 @@ function add( resource, data, options ) {
     ...request,
     body,
     ...mergedOptions,
-  } )
-    .then( ( response ) => handleResponse( response, mergedOptions ) );
+  } ).then( ( response ) => handleResponse( response, mergedOptions ) );
 }
 
-function handleResponse( response, options ) {
+function handleResponse( response ) {
   if ( response.ok ) {
-    response.json()
-      .then( ( data ) => { return { data, response }; } );
-    // eslint-disable-next-line
-      /*
-      .catch((error) => {
-        throw new DAOError(response, 'JSON parsing error');
-      });
-      */
+    return (
+      response
+        .json()
+        .then( ( data ) => {
+          return { data, response };
+        } )
+        // eslint-disable-next-line
+        .catch((error) => {
+          throw new DAOError( response, 'JSON parsing error' );
+        } )
+    );
   } else {
-    return Promise.reject( new DAOError(
-      response ) );
+    return { response, data: null };
   }
 }
 
 function findAllTransactions( options ) {
-  return search( 'transactions', { ...options, returnType: 'array' } );
+  return search( 'transactions', options );
 }
 
 function findTransactionById( id, options ) {
-  return search( `transactions/${id}`, { ...options, returnType: 'object' } );
+  return search( `transactions/${id}`, options );
 }
 
 function findAllUsers( options ) {
-  return search( 'users', { ...options, returnType: 'array' } );
+  return search( 'users', options );
 }
 
 function findUserById( id, options ) {
-  return search( `users/${id}`, { ...options, returnType: 'object' } );
+  return search( `users/${id}`, options );
 }
 
 function addUser( user ) {

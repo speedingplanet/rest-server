@@ -29,9 +29,8 @@ async function generate() {
 
 function getNextId( array, idField = 'id', offset = 1 ) {
   const currentMaxId = array.reduce(
-    ( max, current ) => (
-      Number( current[idField] ) > max ? Number( current[idField] ) : max
-    ),
+    ( max, current ) =>
+      Number( current[idField] ) > max ? Number( current[idField] ) : max,
     0,
   );
 
