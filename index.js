@@ -1,5 +1,5 @@
-import { dao } from './src/daos.js';
+import { dao, testUrl } from './src/daos.js';
 import users from './data/generated/users.js';
 import transactions from './data/generated/transactions.js';
 
-export { dao, users, transactions };
+export { dao, testUrl, users, transactions };

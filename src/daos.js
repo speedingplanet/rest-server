@@ -34,6 +34,7 @@ import serverConfig from './server-config.js';
 
 // eslint-disable-next-line max-len
 const baseUrl = `http://localhost:${serverConfig.port}/api/zippay/v${serverConfig.endpoints.zippay.version}`;
+const testUrl = `${baseUrl}/users/113`;
 
 const abortController = new AbortController();
 const defaultOptions = {
@@ -143,4 +144,4 @@ const dao = {
   getAbortController,
 };
 
-export { dao };
+export { dao, testUrl };

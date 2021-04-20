@@ -60,3 +60,4 @@ export interface Dao {
 }
 
 export const dao: Dao;
+export const testUrl: string;
