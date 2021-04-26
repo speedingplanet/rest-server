@@ -52,9 +52,12 @@ export interface DaoData<T> {
 
 export interface Dao {
   findAllTransactions: (options?: any) => Promise<DaoData<Transaction[]>>;
-  findTransactionById: (id: string, options?: any) => Promise<DaoData<Transaction>>;
+  findTransactionById: (
+    id: string,
+    options?: any
+  ) => Promise<DaoData<Transaction>>;
   findAllUsers: (options?: any) => Promise<DaoData<User[]>>;
-  findUserById: (options?: any) => Promise<DaoData<User>>;
+  findUserById: (id: string, options?: any) => Promise<DaoData<User>>;
   addUser: (user: User) => Promise<DaoData<User>>;
   getAbortController: () => AbortController;
 }
