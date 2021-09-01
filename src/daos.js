@@ -41,6 +41,12 @@ const defaultOptions = {
   signal: abortController.signal,
 };
 
+const defaultData = {
+  version: 1,
+  lastUpdated: new Date().toISOString(),
+  active: true,
+};
+
 function getAbortController() {
   return abortController;
 }
@@ -88,6 +94,7 @@ function add( resource, data, options ) {
     },
   };
 
+  data = { ...defaultData, ...data };
   const body = JSON.stringify( data );
 
   return fetch( `${baseUrl}/${resource}?${queryString}`, {
