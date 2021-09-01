@@ -4,7 +4,7 @@ export interface ZippayRecord {
   id: string;
   version: number;
   lastUpdated: string | Date;
-  active: true;
+  active: boolean;
 }
 
 export interface Address {
@@ -12,6 +12,7 @@ export interface Address {
   city: string;
   state: string;
   postalCode: string;
+  country?: string;
 }
 
 export interface User extends ZippayRecord {
