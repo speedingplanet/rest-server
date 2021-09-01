@@ -7,7 +7,7 @@ const fs = require( 'fs-extra' );
 const meow = require( 'meow' );
 
 const { generateData } = require( './generate' );
-const { generatePayeeId } = require( './generate-lib' );
+const { generateZipPayId } = require( './generate-lib' );
 const serverConfig = require( './server-config.json' );
 
 const dataDir = serverConfig.dataDir;
@@ -90,7 +90,7 @@ async function main( config ) {
     if ( req.method === 'POST' ) {
       if ( req.path.endsWith( 'users' ) ) {
         req.body.id = data.config.users.nextId;
-        req.body.payeeId = generatePayeeId( req.body.displayName );
+        req.body.payeeId = generateZipPayId( req.body.displayName );
       } else if ( req.path.endsWith( 'transactions' ) ) {
         req.body.id = data.config.transactions.nextId;
       }
