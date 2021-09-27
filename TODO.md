@@ -29,3 +29,4 @@
 - [ ] Track down possible character issues with diamond question mark � showing up in JSON
 - [ ] Upgrade to use ESM throughout (going to be a pain for JSON files, I think)
 - [ ] Build a dynamic generator for sql/dbCreate.sql
+- [ ] Update packages in package.json to recent versions
