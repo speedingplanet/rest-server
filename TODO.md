@@ -26,3 +26,6 @@
 - [ ] Add testing for daos.js/optionsToQueryString()
 - [ ] Refine generated amounts to be more accurate to the reason
 - [ ] Update repo to use StandardX for formatting (next time I touch code instead of deps)
+- [ ] Track down possible character issues with diamond question mark � showing up in JSON
+- [ ] Upgrade to use ESM throughout (going to be a pain for JSON files, I think)
+- [ ] Build a dynamic generator for sql/dbCreate.sql
