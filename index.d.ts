@@ -1,6 +1,9 @@
 type UserType = 'corporation' | 'person';
+export type TransactionType = 'payment' | 'charge';
+export type TransactionStatus = 'settled' | 'open';
+export type VisibilityTypes = 'public' | 'private';
 
-export interface ZippayRecord {
+export interface ZipPayRecord {
   id: string;
   version: number;
   lastUpdated: string | Date;
@@ -15,12 +18,12 @@ export interface Address {
   country?: string;
 }
 
-export interface User extends ZippayRecord {
+export interface User extends ZipPayRecord {
   displayName: string;
-  payeeId: string;
-  email: string;
+  payeeId?: string;
+  email?: string;
   userType: UserType;
-  picture: {
+  picture?: {
     large: string;
     medium: string;
     thumbnail: string;
@@ -28,13 +31,9 @@ export interface User extends ZippayRecord {
   address: Address;
 }
 
-export const users: User[];
+export type UserProfile = Pick<User, 'displayName' | 'address' | 'userType'>;
 
-export type TransactionType = 'payment' | 'charge';
-export type TransactionStatus = 'settled' | 'open';
-export type VisibilityTypes = 'public' | 'private';
-
-export interface Transaction extends ZippayRecord {
+export interface Transaction extends ZipPayRecord {
   payorId: string;
   payeeId: string;
   txDate: string | Date;
@@ -59,7 +58,7 @@ export interface Dao {
   ) => Promise<DaoData<Transaction>>;
   findAllUsers: (options?: any) => Promise<DaoData<User[]>>;
   findUserById: (id: string, options?: any) => Promise<DaoData<User>>;
-  addUser: (user: User) => Promise<DaoData<User>>;
+  addUser: (user: User | UserProfile) => Promise<DaoData<User>>;
   getAbortController: () => AbortController;
 }
 
